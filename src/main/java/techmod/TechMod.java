@@ -2,6 +2,7 @@ package techmod;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,5 +21,9 @@ public class TechMod implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+	}
+
+	public Identifier idOf(String path) {
+		return Identifier.of(MOD_ID, path);
 	}
 }

@@ -23,7 +23,7 @@ public class TechMod implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 	}
 
-	public Identifier idOf(String path) {
+	public static Identifier idOf(String path) {
 		return Identifier.of(MOD_ID, path);
 	}
 }

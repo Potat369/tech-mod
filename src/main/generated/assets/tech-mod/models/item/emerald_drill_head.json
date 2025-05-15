@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tech-mod:item/emerald_drill_head"
+  }
+}

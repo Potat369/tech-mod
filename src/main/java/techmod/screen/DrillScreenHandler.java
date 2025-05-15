@@ -64,14 +64,24 @@ public class DrillScreenHandler extends ScreenHandler {
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 50 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 50 + i * 18) {
+                    @Override
+                    public boolean canTakeItems(PlayerEntity playerEntity) {
+                        return !getStack().isOf(ModItems.DRILL);
+                    }
+                });
             }
         }
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 108));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 108) {
+                @Override
+                public boolean canTakeItems(PlayerEntity playerEntity) {
+                    return !getStack().isOf(ModItems.DRILL);
+                }
+            });
         }
     }
 

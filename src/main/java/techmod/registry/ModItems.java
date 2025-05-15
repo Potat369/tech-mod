@@ -17,7 +17,7 @@ public class ModItems {
     public static final Item EMERALD_DRILL_HEAD = registerItem("emerald_drill_head", Item::new, new Item.Settings());
     public static final Item NETHERITE_DRILL_HEAD = registerItem("netherite_drill_head", Item::new, new Item.Settings());
 
-    public static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+    private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, TechMod.idOf(name));
         return Items.register(itemKey, factory, settings);
     }

@@ -7,7 +7,9 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import techmod.registry.ModItems;
 import techmod.registry.ModScreenHandlers;
+import techmod.registry.ModTags;
 
 public class DrillScreenHandler extends ScreenHandler {
 
@@ -20,6 +22,11 @@ public class DrillScreenHandler extends ScreenHandler {
             @Override
             public int getMaxItemCount() {
                 return 1;
+            }
+
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return stack.isIn(ModTags.DRILL_HEADS);
             }
         });
         addPlayerInventory(playerInventory);

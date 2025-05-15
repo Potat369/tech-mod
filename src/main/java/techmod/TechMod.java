@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import techmod.registry.ModItems;
 import techmod.registry.ModItemsGroups;
+import techmod.registry.ModScreenHandlers;
 
 public class TechMod implements ModInitializer {
 	public static final String MOD_ID = "tech-mod";
@@ -17,6 +18,7 @@ public class TechMod implements ModInitializer {
 		ModItems.registerItems();
 		ModItemsGroups.register();
 		LOGGER.info("Hello Fabric world!");
+		ModScreenHandlers.registerAll();
 	}
 
 	public static Identifier idOf(String path) {

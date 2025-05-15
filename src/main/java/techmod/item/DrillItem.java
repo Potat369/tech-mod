@@ -7,6 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import techmod.registry.ModItems;
 import techmod.screen.DrillScreenHandler;
 
 public class DrillItem extends Item {
@@ -17,7 +18,7 @@ public class DrillItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient) {
-            user.openHandledScreen(new SimpleNamedScreenHandlerFactory(((syncId, playerInventory, player) -> new DrillScreenHandler(syncId, playerInventory)), Text.literal("Drill Interface")));
+            user.openHandledScreen(new SimpleNamedScreenHandlerFactory(((syncId, playerInventory, player) -> new DrillScreenHandler(syncId, playerInventory)), Text.translatable(ModItems.DRILL.getTranslationKey())));
         }
         return ActionResult.SUCCESS;
     }

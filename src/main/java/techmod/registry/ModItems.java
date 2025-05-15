@@ -5,6 +5,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import techmod.TechMod;
+import techmod.item.DrillItem;
 
 import java.util.function.Function;
 
@@ -16,6 +17,7 @@ public class ModItems {
     public static final Item DIAMOND_DRILL_HEAD = registerItem("diamond_drill_head", Item::new, new Item.Settings());
     public static final Item EMERALD_DRILL_HEAD = registerItem("emerald_drill_head", Item::new, new Item.Settings());
     public static final Item NETHERITE_DRILL_HEAD = registerItem("netherite_drill_head", Item::new, new Item.Settings());
+    public static final Item DRILL = registerItem("drill", DrillItem::new, new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, TechMod.idOf(name));

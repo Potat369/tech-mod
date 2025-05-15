@@ -17,6 +17,7 @@ public class ModItemsGroups {
                 displayName(Text.translatable("itemGroup.tech_mod.tech_mod_item_group")).
                 icon(() -> new ItemStack(ModItems.COPPER_DRILL_HEAD)).
                 entries(((displayContext, entries) -> {
+                    entries.add(ModItems.DRILL);
                     entries.add(ModItems.COPPER_DRILL_HEAD);
                     entries.add(ModItems.IRON_DRILL_HEAD);
                     entries.add(ModItems.GOLD_DRILL_HEAD);

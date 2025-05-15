@@ -26,6 +26,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_DRILL_HEAD, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_DRILL_HEAD, Models.GENERATED);
         itemModelGenerator.register(ModItems.EMERALD_DRILL_HEAD, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DRILL, Models.HANDHELD);
     }
 
     @Override

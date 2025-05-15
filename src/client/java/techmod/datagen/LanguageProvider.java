@@ -21,6 +21,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.DIAMOND_DRILL_HEAD, "Diamond Drill Head");
         translationBuilder.add(ModItems.NETHERITE_DRILL_HEAD, "Netherite Drill Head");
         translationBuilder.add(ModItems.EMERALD_DRILL_HEAD, "Emerald Drill Head");
+        translationBuilder.add(ModItems.DRILL, "Drill");
         translationBuilder.add("itemGroup.tech_mod.tech_mod_item_group", "Tech Mod Item Group");
     }
 }

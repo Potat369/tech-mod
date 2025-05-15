@@ -1,0 +1,10 @@
+{
+  "values": [
+    "tech-mod:copper_drill_head",
+    "tech-mod:iron_drill_head",
+    "tech-mod:gold_drill_head",
+    "tech-mod:diamond_drill_head",
+    "tech-mod:emerald_drill_head",
+    "tech-mod:netherite_drill_head"
+  ]
+}

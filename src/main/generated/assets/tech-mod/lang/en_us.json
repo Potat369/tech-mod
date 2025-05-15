@@ -6,5 +6,8 @@
   "item.tech-mod.gold_drill_head": "Gold Drill Head",
   "item.tech-mod.iron_drill_head": "Iron Drill Head",
   "item.tech-mod.netherite_drill_head": "Netherite Drill Head",
-  "itemGroup.tech_mod.tech_mod_item_group": "Tech Mod Item Group"
+  "itemGroup.tech_mod.tech_mod_item_group": "Tech Mod Item Group",
+  "tag.item.tech-mod.copper_tool_materials": "Copper Tool Materials",
+  "tag.item.tech-mod.drill_heads": "Drill Heads",
+  "tag.item.tech-mod.emerald_tool_materials": "Emerald Tool Materials"
 }

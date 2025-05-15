@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
 import techmod.registry.ModItems;
+import techmod.registry.ModTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,5 +24,8 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.EMERALD_DRILL_HEAD, "Emerald Drill Head");
         translationBuilder.add(ModItems.DRILL, "Drill");
         translationBuilder.add("itemGroup.tech_mod.tech_mod_item_group", "Tech Mod Item Group");
+        translationBuilder.add(ModTags.DRILL_HEADS, "Drill Heads");
+        translationBuilder.add(ModTags.COPPER_TOOL_MATERIALS, "Copper Tool Materials");
+        translationBuilder.add(ModTags.EMERALD_TOOL_MATERIALS, "Emerald Tool Materials");
     }
 }

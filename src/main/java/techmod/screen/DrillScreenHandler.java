@@ -1,5 +1,7 @@
 package techmod.screen;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -7,6 +9,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import org.apache.commons.compress.utils.Lists;
 import techmod.registry.ModItems;
 import techmod.registry.ModScreenHandlers;
 import techmod.registry.ModTags;
@@ -14,10 +17,17 @@ import techmod.registry.ModTags;
 public class DrillScreenHandler extends ScreenHandler {
 
     private final Inventory inventory;
+    private final ItemStack drill;
 
     public DrillScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, ItemStack.EMPTY);
+    }
+
+    public DrillScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack drillStack) {
         super(ModScreenHandlers.DRILL_SCREEN_HANDLER, syncId);
         this.inventory = new SimpleInventory(1);
+        drill = drillStack;
+        inventory.setStack(0, drillStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyFirstStack());
         this.addSlot(new Slot(inventory, 0, 80, 18){
             @Override
             public int getMaxItemCount() {
@@ -31,6 +41,11 @@ public class DrillScreenHandler extends ScreenHandler {
         });
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
+    }
+
+    @Override
+    public void onClosed(PlayerEntity player) {
+        drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
     }
 
     @Override

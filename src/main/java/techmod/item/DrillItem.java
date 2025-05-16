@@ -50,6 +50,7 @@ public class DrillItem extends Item {
         if (!drillHead.isEmpty()) {
             drillHead.damage(1, miner, EquipmentSlot.MAINHAND);
             stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(List.of(drillHead)));
+            updateDrillHead(stack);
             return true;
         }
         else {

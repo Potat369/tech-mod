@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import org.apache.commons.compress.utils.Lists;
+import techmod.item.DrillItem;
 import techmod.registry.ModItems;
 import techmod.registry.ModScreenHandlers;
 import techmod.registry.ModTags;
@@ -46,6 +47,9 @@ public class DrillScreenHandler extends ScreenHandler {
     @Override
     public void onClosed(PlayerEntity player) {
         drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
+        if (drill.getItem() instanceof DrillItem drillItem) {
+            drillItem.updateDrillHead(drill);
+        }
     }
 
     @Override

@@ -57,4 +57,22 @@ public class DrillItem extends Item {
             return false;
         }
     }
+
+    @Override
+    public boolean isItemBarVisible(ItemStack stack) {
+        var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
+        return drillHead.isItemBarVisible();
+    }
+
+    @Override
+    public int getItemBarStep(ItemStack stack) {
+        var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
+        return drillHead.getItemBarStep();
+    }
+
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
+        return drillHead.getItemBarColor();
+    }
 }

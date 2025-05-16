@@ -36,6 +36,15 @@ public class DrillScreenHandler extends ScreenHandler {
             }
 
             @Override
+            public void markDirty() {
+                drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
+                if (drill.getItem() instanceof DrillItem drillItem) {
+                    drillItem.updateDrillHead(drill);
+                }
+                super.markDirty();
+            }
+
+            @Override
             public boolean canInsert(ItemStack stack) {
                 return stack.isIn(ModTags.DRILL_HEADS);
             }

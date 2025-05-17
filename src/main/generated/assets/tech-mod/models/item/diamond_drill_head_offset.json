@@ -1,0 +1,6 @@
+{
+  "parent": "tech-mod:item/drill_head_offset",
+  "textures": {
+    "layer0": "tech-mod:item/diamond_drill_head"
+  }
+}

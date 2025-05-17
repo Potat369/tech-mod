@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "tech-mod:item/emerald_drill_head"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "tech-mod:item/emerald_drill_head"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "tech-mod:item/emerald_drill_head_offset"
+    },
+    "property": "minecraft:custom_model_data"
   }
 }

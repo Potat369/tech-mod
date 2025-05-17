@@ -2,10 +2,17 @@ package techmod.datagen;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.Models;
+import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.property.bool.CustomModelDataFlagProperty;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
+import techmod.TechMod;
 import techmod.registry.ModItems;
+import techmod.render.item.model.DrillHeadItemModel;
+import techmod.render.item.property.bool.HasDrillHeadProperty;
+
+import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
 
@@ -14,19 +21,53 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
-    }
+    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {}
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ModItems.COPPER_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IRON_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DIAMOND_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EMERALD_DRILL_HEAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DRILL, Models.HANDHELD);
+        generateDrillHead(itemModelGenerator, ModItems.COPPER_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.EMERALD_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.IRON_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.NETHERITE_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.DIAMOND_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.GOLD_DRILL_HEAD);
+        generateDrill(itemModelGenerator, ModItems.DRILL);
+    }
+
+    public void generateDrillHead(ItemModelGenerator itemModelGenerator, Item item) {
+        var a = itemModelGenerator.upload(item, Models.GENERATED);
+        itemModelGenerator.registerCondition(
+                item,
+                new CustomModelDataFlagProperty(0),
+                ItemModels.basic(
+                        new Model(
+                                        Optional.of(TechMod.idOf("item/drill_head_offset")),
+                                        Optional.empty(),
+                                        TextureKey.LAYER0)
+                                .upload(
+                                        ModelIds.getItemModelId(item).withSuffixedPath("_offset"),
+                                        TextureMap.layer0(ModelIds.getItemModelId(item)),
+                                        itemModelGenerator.modelCollector)),
+                ItemModels.basic(a));
+    }
+
+    public void generateDrill(ItemModelGenerator itemModelGenerator, Item item) {
+        itemModelGenerator.registerCondition(
+                item,
+                new HasDrillHeadProperty(),
+                ItemModels.composite(
+                        ItemModels.basic(
+                                new Model(
+                                                Optional.of(TechMod.idOf("item/drill_model_offset")),
+                                                Optional.empty(),
+                                                TextureKey.LAYER0)
+                                        .upload(
+                                                ModelIds.getItemModelId(item)
+                                                        .withSuffixedPath("_offset"),
+                                                TextureMap.layer0(ModelIds.getItemModelId(item)),
+                                                itemModelGenerator.modelCollector)),
+                        new DrillHeadItemModel.Unbaked()),
+                ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD)));
     }
 
     @Override

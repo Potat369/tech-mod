@@ -1,6 +1,22 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "tech-mod:item/drill"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "tech-mod:item/drill"
+    },
+    "on_true": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "tech-mod:item/drill_offset"
+        },
+        {
+          "type": "tech-mod:drill/head"
+        }
+      ]
+    },
+    "property": "tech-mod:has_drill_head"
   }
 }

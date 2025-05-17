@@ -5,10 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import techmod.registry.ModComponents;
-import techmod.registry.ModItems;
-import techmod.registry.ModItemsGroups;
-import techmod.registry.ModScreenHandlers;
+import techmod.registry.*;
 
 public class TechMod implements ModInitializer {
 	public static final String MOD_ID = "tech-mod";
@@ -21,6 +18,7 @@ public class TechMod implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 		ModScreenHandlers.registerAll();
 		ModComponents.init();
+		ModParticleTypes.init();
 	}
 
 	public static Identifier idOf(String path) {

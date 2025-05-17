@@ -5,8 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.property.bool.CustomModelDataFlagProperty;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import techmod.TechMod;
 import techmod.registry.ModItems;
 import techmod.render.item.model.DrillHeadItemModel;
@@ -30,7 +28,7 @@ public class ModelProvider extends FabricModelProvider {
         generateDrillHead(itemModelGenerator, ModItems.IRON_DRILL_HEAD);
         generateDrillHead(itemModelGenerator, ModItems.NETHERITE_DRILL_HEAD);
         generateDrillHead(itemModelGenerator, ModItems.DIAMOND_DRILL_HEAD);
-        generateDrillHead(itemModelGenerator, ModItems.GOLD_DRILL_HEAD);
+        generateDrillHead(itemModelGenerator, ModItems.GOLDEN_DRILL_HEAD);
         generateDrill(itemModelGenerator, ModItems.DRILL);
     }
 

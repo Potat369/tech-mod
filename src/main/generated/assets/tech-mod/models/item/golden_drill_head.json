@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tech-mod:item/gold_drill_head"
+    "layer0": "tech-mod:item/golden_drill_head"
   }
 }

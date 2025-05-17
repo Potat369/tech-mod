@@ -21,7 +21,7 @@ public class ModItems {
 
     public static final Item COPPER_DRILL_HEAD = registerDrillHead("copper", ModToolMaterials.COPPER);
     public static final Item IRON_DRILL_HEAD = registerDrillHead("iron", ToolMaterial.IRON);
-    public static final Item GOLD_DRILL_HEAD = registerDrillHead("gold", ToolMaterial.GOLD);
+    public static final Item GOLDEN_DRILL_HEAD = registerDrillHead("golden", ToolMaterial.GOLD);
     public static final Item DIAMOND_DRILL_HEAD = registerDrillHead("diamond", ToolMaterial.DIAMOND);
     public static final Item EMERALD_DRILL_HEAD = registerDrillHead("emerald", ModToolMaterials.EMERALD);
     public static final Item NETHERITE_DRILL_HEAD = registerDrillHead("netherite", ToolMaterial.NETHERITE);

@@ -20,7 +20,7 @@ public class ModItemsGroups {
                     entries.add(ModItems.DRILL);
                     entries.add(ModItems.COPPER_DRILL_HEAD);
                     entries.add(ModItems.IRON_DRILL_HEAD);
-                    entries.add(ModItems.GOLD_DRILL_HEAD);
+                    entries.add(ModItems.GOLDEN_DRILL_HEAD);
                     entries.add(ModItems.DIAMOND_DRILL_HEAD);
                     entries.add(ModItems.NETHERITE_DRILL_HEAD);
                     entries.add(ModItems.EMERALD_DRILL_HEAD);

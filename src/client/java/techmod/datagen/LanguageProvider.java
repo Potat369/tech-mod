@@ -18,7 +18,7 @@ public class LanguageProvider extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.COPPER_DRILL_HEAD, "Copper Drill Head");
         translationBuilder.add(ModItems.IRON_DRILL_HEAD, "Iron Drill Head");
-        translationBuilder.add(ModItems.GOLD_DRILL_HEAD, "Gold Drill Head");
+        translationBuilder.add(ModItems.GOLDEN_DRILL_HEAD, "Golden Drill Head");
         translationBuilder.add(ModItems.DIAMOND_DRILL_HEAD, "Diamond Drill Head");
         translationBuilder.add(ModItems.NETHERITE_DRILL_HEAD, "Netherite Drill Head");
         translationBuilder.add(ModItems.EMERALD_DRILL_HEAD, "Emerald Drill Head");

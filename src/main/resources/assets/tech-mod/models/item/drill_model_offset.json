@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "display": {
     "gui": {
-      "translation": [ -2, -2, 0 ]
+      "translation": [ 3, -3, 0 ]
     }
   }
 }

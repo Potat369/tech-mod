@@ -32,10 +32,6 @@ public class ModItems {
         return Items.register(itemKey, factory, settings);
     }
 
-    private static Item registerBlockItem(Block block) {
-        return Items.register(block);
-    }
-
     private static Item registerDrillHead(String material, ToolMaterial toolMaterial) {
         RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
         return registerItem(material + "_drill_head", Item::new, new Item.Settings()

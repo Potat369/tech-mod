@@ -7,9 +7,10 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import techmod.TechMod;
+import techmod.block.entity.OreMinerBlockEntity;
 
 public class ModBlockEntities {
-
+    public static final BlockEntityType<OreMinerBlockEntity> ORE_MINER = register("ore_miner", OreMinerBlockEntity::new, ModBlocks.ORE_MINER);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,

@@ -20,6 +20,7 @@ public class TechMod implements ModInitializer {
 		ModComponents.init();
 		ModParticleTypes.init();
 		ModBlocks.init();
+		ModBlockEntities.init();
 	}
 
 	public static Identifier idOf(String path) {

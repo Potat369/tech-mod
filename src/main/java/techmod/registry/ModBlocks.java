@@ -9,12 +9,14 @@ import net.minecraft.registry.RegistryKeys;
 
 import techmod.TechMod;
 import techmod.block.OreMinerBlock;
+import techmod.block.TeslaCoilBlock;
 import techmod.block.OreScannerBlock;
 
 import java.util.function.Function;
 
 public class ModBlocks {
     public static final Block ORE_MINER = registerBlock("ore_miner", OreMinerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
+    public static final Block TESLA_COIL = registerBlock("tesla_coil", TeslaCoilBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
     public static final Block ORE_SCANNER = registerBlock("ore_scanner", OreScannerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
 
     private static Block registerBlock(String name, Function<Block.Settings, Block> factory, AbstractBlock.Settings settings) {

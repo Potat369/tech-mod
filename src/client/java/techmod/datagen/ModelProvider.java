@@ -6,6 +6,7 @@ import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.property.bool.CustomModelDataFlagProperty;
 import net.minecraft.item.Item;
 import techmod.TechMod;
+import techmod.registry.ModBlocks;
 import techmod.registry.ModItems;
 import techmod.render.item.model.DrillHeadItemModel;
 import techmod.render.item.property.bool.HasDrillHeadProperty;
@@ -19,7 +20,9 @@ public class ModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {}
+    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        blockStateModelGenerator.registerSingleton(ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
+    }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {

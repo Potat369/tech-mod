@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "tech-mod:block/ore_miner"
+    }
+  }
+}

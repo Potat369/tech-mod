@@ -46,8 +46,13 @@ public class OreMinerBlockEntity extends BlockEntity {
                                     }
                                     else {
                                         var newStack = inventory.getStack(insertableSlot);
-                                        newStack.increment(1);
-                                        inventory.setStack(insertableSlot, newStack);
+                                        if (newStack.isEmpty()) {
+                                            inventory.setStack(insertableSlot, block.asItem().getDefaultStack());
+                                        }
+                                        else {
+                                            newStack.increment(1);
+                                            inventory.setStack(insertableSlot, newStack);
+                                        }
                                     }
                                 }
                                 else {

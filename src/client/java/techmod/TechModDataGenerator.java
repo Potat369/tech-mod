@@ -13,5 +13,6 @@ public class TechModDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ItemTagProvider::new);
 		pack.addProvider(BlockTagProvider::new);
 		pack.addProvider(RecipeProvider::new);
+		pack.addProvider(LootTableProvider::new);
 	}
 }

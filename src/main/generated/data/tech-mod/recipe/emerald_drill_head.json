@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "#tech-mod:emerald_tool_materials"
+  },
+  "pattern": [
+    "M ",
+    " M"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tech-mod:emerald_drill_head"
+  }
+}

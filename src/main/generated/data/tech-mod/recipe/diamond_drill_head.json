@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    "M ",
+    " M"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tech-mod:diamond_drill_head"
+  }
+}

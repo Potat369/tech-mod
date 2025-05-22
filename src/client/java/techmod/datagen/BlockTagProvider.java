@@ -20,9 +20,9 @@ public class BlockTagProvider extends FabricTagProvider<Block> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.ORE_MINER);
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.ORE_MINER);
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.ORE_SCANNER);
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.ORE_SCANNER);
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(ModBlocks.ORE_MINER, ModBlocks.ORE_SCANNER);
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+                .add(ModBlocks.ORE_MINER, ModBlocks.ORE_SCANNER);
     }
 }

@@ -1,28 +1,29 @@
 package techmod.block;
 
+import com.mojang.serialization.MapCodec;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+
 import org.jetbrains.annotations.Nullable;
+
+import techmod.block.entity.TeslaCoilBlockEntity;
+import techmod.registry.ModBlockEntities;
 
 import java.util.stream.Stream;
 
-public class TeslaCoilBlock extends Block {
-    public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
-
+public class TeslaCoilBlock extends BlockWithEntity {
     public static final VoxelShape VOXEL_SHAPE =
             Stream.of(
                             Block.createCuboidShape(0, 0, 0, 16, 1, 16),
@@ -53,7 +54,11 @@ public class TeslaCoilBlock extends Block {
 
     public TeslaCoilBlock(Settings settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState().with(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(TeslaCoilBlock::new);
     }
 
     @Override
@@ -63,23 +68,13 @@ public class TeslaCoilBlock extends Block {
     }
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return super.canPlaceAt(state, world, pos) && world.getBlockState(pos.up()).isReplaceable();
+    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new TeslaCoilBlockEntity(pos, state);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HALF);
-    }
-
-    @Override
-    public void onPlaced(
-            World world,
-            BlockPos pos,
-            BlockState state,
-            @Nullable LivingEntity placer,
-            ItemStack itemStack) {
-        world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), 3);
-        super.onPlaced(world, pos, state, placer, itemStack);
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(type, ModBlockEntities.TESLA_COIL, TeslaCoilBlockEntity::tick);
     }
 }

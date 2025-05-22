@@ -36,7 +36,7 @@ public class ModItems {
         RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
         return registerItem(material + "_drill_head", Item::new, new Item.Settings()
                 .repairable(toolMaterial.repairItems())
-                .maxDamage(toolMaterial.durability())
+                .maxDamage(Math.round(toolMaterial.durability() * 0.75f))
                 .component(ModComponents.RULES, List.of(
                         ToolComponent.Rule.ofNeverDropping(registryEntryLookup.getOrThrow(toolMaterial.incorrectBlocksForDrops())),
                         ToolComponent.Rule.ofAlwaysDropping(registryEntryLookup.getOrThrow(BlockTags.PICKAXE_MINEABLE), toolMaterial.speed()))

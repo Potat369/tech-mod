@@ -8,7 +8,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
 import techmod.TechMod;
-import techmod.block.EnergySetterBlock;
 import techmod.block.OreMinerBlock;
 import techmod.block.TeslaCoilBlock;
 import techmod.block.OreScannerBlock;
@@ -31,11 +30,6 @@ public class ModBlocks {
                     "ore_scanner",
                     OreScannerBlock::new,
                     AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
-    public static final Block ENERGY_SETTER =
-            registerBlock(
-                    "energy_setter",
-                    EnergySetterBlock::new,
-                    AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
 
     private static Block registerBlock(
             String name, Function<Block.Settings, Block> factory, AbstractBlock.Settings settings) {

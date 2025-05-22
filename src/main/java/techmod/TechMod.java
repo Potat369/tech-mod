@@ -15,7 +15,6 @@ public class TechMod implements ModInitializer {
     public void onInitialize() {
         ModItems.registerItems();
         ModItemsGroups.register();
-        LOGGER.info("Hello Fabric world!");
         ModScreenHandlers.init();
         ModComponents.init();
         ModParticleTypes.init();

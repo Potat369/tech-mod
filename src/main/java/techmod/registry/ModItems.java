@@ -58,7 +58,5 @@ public class ModItems {
                                                 toolMaterial.speed()))));
     }
 
-    public static void registerItems() {
-        TechMod.LOGGER.info("Registering Mod Items");
-    }
+    public static void registerItems() {}
 }

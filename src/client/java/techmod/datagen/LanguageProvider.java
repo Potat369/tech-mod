@@ -3,6 +3,7 @@ package techmod.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
+import techmod.registry.ModBlocks;
 import techmod.registry.ModItems;
 import techmod.registry.ModTags;
 
@@ -27,5 +28,9 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModTags.DRILL_HEADS, "Drill Heads");
         translationBuilder.add(ModTags.COPPER_TOOL_MATERIALS, "Copper Tool Materials");
         translationBuilder.add(ModTags.EMERALD_TOOL_MATERIALS, "Emerald Tool Materials");
+        translationBuilder.add(ModBlocks.ENERGY_SETTER, "Energy Setter");
+        translationBuilder.add(ModBlocks.ORE_MINER, "Ore Miner");
+        translationBuilder.add(ModBlocks.ORE_SCANNER, "Ore Scanner");
+        translationBuilder.add(ModBlocks.TESLA_COIL, "Tesla Coil");
     }
 }

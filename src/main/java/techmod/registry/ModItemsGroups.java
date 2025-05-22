@@ -13,7 +13,7 @@ public class ModItemsGroups {
     public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP =
             RegistryKey.of(Registries.ITEM_GROUP.getKey(), TechMod.idOf("item_group"));
 
-    public static void register() {
+    public static void init() {
         Registry.register(
                 Registries.ITEM_GROUP,
                 TECH_MOD_ITEM_GROUP,

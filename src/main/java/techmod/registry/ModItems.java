@@ -58,5 +58,5 @@ public class ModItems {
                                                 toolMaterial.speed()))));
     }
 
-    public static void registerItems() {}
+    public static void init() {}
 }

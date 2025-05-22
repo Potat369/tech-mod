@@ -7,6 +7,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
+import techmod.registry.ModBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,6 +19,14 @@ public class BlockTagProvider extends FabricTagProvider<Block> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).
+                add(ModBlocks.ORE_MINER);
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).
+                add(ModBlocks.ORE_MINER);
 
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).
+                add(ModBlocks.ORE_SCANNER);
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).
+                add(ModBlocks.ORE_SCANNER);
     }
 }

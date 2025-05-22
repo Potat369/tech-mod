@@ -15,13 +15,14 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techmod.api.TechEnergyItem;
 import techmod.registry.ModComponents;
 import techmod.registry.ModItems;
 import techmod.screen.DrillScreenHandler;
 
 import java.util.List;
 
-public class DrillItem extends Item {
+public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
         super(settings.maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
     }
@@ -74,5 +75,20 @@ public class DrillItem extends Item {
     public int getItemBarColor(ItemStack stack) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         return drillHead.getItemBarColor();
+    }
+
+    @Override
+    public long getEnergyCapacity(ItemStack itemStack) {
+        return 32000;
+    }
+
+    @Override
+    public long getEnergyMaxInput(ItemStack itemStack) {
+        return 32;
+    }
+
+    @Override
+    public long getEnergyMaxOutput(ItemStack itemStack) {
+        return 32;
     }
 }

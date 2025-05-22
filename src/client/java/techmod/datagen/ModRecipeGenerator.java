@@ -12,7 +12,8 @@ import net.minecraft.registry.RegistryWrapper;
 import techmod.registry.ModItems;
 
 public class ModRecipeGenerator extends RecipeGenerator {
-    protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+    protected ModRecipeGenerator(
+            RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
         super(registries, exporter);
     }
 
@@ -42,7 +43,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .input('M', Ingredient.fromTag(repairable.items()))
                 .pattern("M ")
                 .pattern(" M")
-                .criterion("has_ingredient", conditionsFromTag(repairable.items().getTagKey().get()))
+                .criterion(
+                        "has_ingredient", conditionsFromTag(repairable.items().getTagKey().get()))
                 .offerTo(exporter);
     }
 }

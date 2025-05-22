@@ -44,7 +44,11 @@ public class EnergySparkleParticle extends SpriteBillboardParticle {
     }
 
     @Override
-    protected void render(VertexConsumer vertexConsumer, Camera camera, Quaternionf quaternionf, float tickProgress) {
+    protected void render(
+            VertexConsumer vertexConsumer,
+            Camera camera,
+            Quaternionf quaternionf,
+            float tickProgress) {
         alpha = 1;
         if (age < 10) {
             setColor(0.5f + 0.5f * ((float) age / 10), 0.75f + (0.25f * ((float) age / 10)), 1f);

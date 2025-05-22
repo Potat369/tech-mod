@@ -11,12 +11,15 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProvider extends FabricLanguageProvider {
 
-    public LanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput,"en_us" ,registryLookup);
+    public LanguageProvider(
+            FabricDataOutput dataOutput,
+            CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, "en_us", registryLookup);
     }
 
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations(
+            RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.COPPER_DRILL_HEAD, "Copper Drill Head");
         translationBuilder.add(ModItems.IRON_DRILL_HEAD, "Iron Drill Head");
         translationBuilder.add(ModItems.GOLDEN_DRILL_HEAD, "Golden Drill Head");

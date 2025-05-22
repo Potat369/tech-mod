@@ -9,11 +9,11 @@ import techmod.render.item.model.DrillHeadItemModel;
 import techmod.render.item.property.bool.HasDrillHeadProperty;
 
 public class TechModClient implements ClientModInitializer {
-	@Override
-	public void onInitializeClient() {
-		ModScreens.init();
-		ModParticles.init();
-		ItemModelTypes.ID_MAPPER.put(TechMod.idOf("drill/head"), DrillHeadItemModel.Unbaked.CODEC);
-		BooleanProperties.ID_MAPPER.put(TechMod.idOf("has_drill_head"), HasDrillHeadProperty.CODEC);
-	}
+    @Override
+    public void onInitializeClient() {
+        ModScreens.init();
+        ModParticles.init();
+        ItemModelTypes.ID_MAPPER.put(TechMod.idOf("drill/head"), DrillHeadItemModel.Unbaked.CODEC);
+        BooleanProperties.ID_MAPPER.put(TechMod.idOf("has_drill_head"), HasDrillHeadProperty.CODEC);
+    }
 }

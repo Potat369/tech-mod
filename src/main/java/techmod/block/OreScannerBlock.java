@@ -18,16 +18,17 @@ public class OreScannerBlock extends Block {
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected ActionResult onUse(
+            BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
             var blockSet = OreMinerBlockEntity.getOresInChunk(world, pos);
-            for(Block block : blockSet.keySet()) {
+            for (Block block : blockSet.keySet()) {
                 int count = blockSet.get(block).size();
                 String blockName = new ItemStack(block).getName().getString();
                 Text message = Text.literal("").append(blockName).append(": " + count);
                 player.sendMessage(message, false);
             }
-            if(blockSet.isEmpty()) {
+            if (blockSet.isEmpty()) {
                 player.sendMessage(Text.literal("No ores left in chunk"), true);
             }
         }

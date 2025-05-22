@@ -11,7 +11,8 @@ import org.jetbrains.annotations.Nullable;
 import techmod.registry.ModTags;
 
 public record HasDrillHeadProperty() implements BooleanProperty {
-    public static final MapCodec<HasDrillHeadProperty> CODEC = MapCodec.unit(new HasDrillHeadProperty());
+    public static final MapCodec<HasDrillHeadProperty> CODEC =
+            MapCodec.unit(new HasDrillHeadProperty());
 
     @Override
     public MapCodec<? extends BooleanProperty> getCodec() {
@@ -19,7 +20,12 @@ public record HasDrillHeadProperty() implements BooleanProperty {
     }
 
     @Override
-    public boolean test(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
+    public boolean test(
+            ItemStack stack,
+            @Nullable ClientWorld world,
+            @Nullable LivingEntity entity,
+            int seed,
+            ItemDisplayContext displayContext) {
         return stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isIn(ModTags.DRILL_HEADS);
     }
 }

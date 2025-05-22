@@ -28,34 +28,44 @@ public class DrillScreenHandler extends ScreenHandler {
         super(ModScreenHandlers.DRILL_SCREEN_HANDLER, syncId);
         this.inventory = new SimpleInventory(1);
         drill = drillStack;
-        inventory.setStack(0, drillStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyFirstStack());
-        this.addSlot(new Slot(inventory, 0, 80, 18){
-            @Override
-            public int getMaxItemCount() {
-                return 1;
-            }
+        inventory.setStack(
+                0,
+                drillStack
+                        .getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+                        .copyFirstStack());
+        this.addSlot(
+                new Slot(inventory, 0, 80, 18) {
+                    @Override
+                    public int getMaxItemCount() {
+                        return 1;
+                    }
 
-            @Override
-            public void markDirty() {
-                drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
-                if (drill.getItem() instanceof DrillItem drillItem) {
-                    drillItem.updateDrillHead(drill);
-                }
-                super.markDirty();
-            }
+                    @Override
+                    public void markDirty() {
+                        drill.set(
+                                DataComponentTypes.CONTAINER,
+                                ContainerComponent.fromStacks(
+                                        Lists.newArrayList(inventory.iterator())));
+                        if (drill.getItem() instanceof DrillItem drillItem) {
+                            drillItem.updateDrillHead(drill);
+                        }
+                        super.markDirty();
+                    }
 
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return stack.isIn(ModTags.DRILL_HEADS);
-            }
-        });
+                    @Override
+                    public boolean canInsert(ItemStack stack) {
+                        return stack.isIn(ModTags.DRILL_HEADS);
+                    }
+                });
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
     }
 
     @Override
     public void onClosed(PlayerEntity player) {
-        drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
+        drill.set(
+                DataComponentTypes.CONTAINER,
+                ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
         if (drill.getItem() instanceof DrillItem drillItem) {
             drillItem.updateDrillHead(drill);
         }
@@ -69,7 +79,8 @@ public class DrillScreenHandler extends ScreenHandler {
             ItemStack originalStack = invSlot.getStack();
             newStack = originalStack.copy();
             if (slot < this.inventory.size()) {
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+                if (!this.insertItem(
+                        originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
@@ -89,28 +100,30 @@ public class DrillScreenHandler extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
     }
+
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 50 + i * 18) {
-                    @Override
-                    public boolean canTakeItems(PlayerEntity playerEntity) {
-                        return !getStack().isOf(ModItems.DRILL);
-                    }
-                });
+                this.addSlot(
+                        new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 50 + i * 18) {
+                            @Override
+                            public boolean canTakeItems(PlayerEntity playerEntity) {
+                                return !getStack().isOf(ModItems.DRILL);
+                            }
+                        });
             }
         }
     }
 
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 108) {
-                @Override
-                public boolean canTakeItems(PlayerEntity playerEntity) {
-                    return !getStack().isOf(ModItems.DRILL);
-                }
-            });
+            this.addSlot(
+                    new Slot(playerInventory, i, 8 + i * 18, 108) {
+                        @Override
+                        public boolean canTakeItems(PlayerEntity playerEntity) {
+                            return !getStack().isOf(ModItems.DRILL);
+                        }
+                    });
         }
     }
-
 }

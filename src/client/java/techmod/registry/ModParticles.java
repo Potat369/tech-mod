@@ -5,6 +5,7 @@ import techmod.particle.EnergySparkleParticle;
 
 public class ModParticles {
     public static void init() {
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.ENERGY_SPARKLE, EnergySparkleParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance()
+                .register(ModParticleTypes.ENERGY_SPARKLE, EnergySparkleParticle.Factory::new);
     }
 }

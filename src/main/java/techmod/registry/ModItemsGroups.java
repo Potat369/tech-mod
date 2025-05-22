@@ -10,24 +10,29 @@ import net.minecraft.text.Text;
 import techmod.TechMod;
 
 public class ModItemsGroups {
-    public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP = RegistryKey.of(Registries.ITEM_GROUP.getKey(), TechMod.idOf("item_group"));
+    public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP =
+            RegistryKey.of(Registries.ITEM_GROUP.getKey(), TechMod.idOf("item_group"));
 
-    public static void register(){
-        Registry.register(Registries.ITEM_GROUP, TECH_MOD_ITEM_GROUP, FabricItemGroup.builder().
-                displayName(Text.translatable("itemGroup.tech_mod.tech_mod_item_group")).
-                icon(() -> new ItemStack(ModItems.COPPER_DRILL_HEAD)).
-                entries(((displayContext, entries) -> {
-                    entries.add(ModItems.DRILL);
-                    entries.add(ModItems.COPPER_DRILL_HEAD);
-                    entries.add(ModItems.IRON_DRILL_HEAD);
-                    entries.add(ModItems.GOLDEN_DRILL_HEAD);
-                    entries.add(ModItems.DIAMOND_DRILL_HEAD);
-                    entries.add(ModItems.NETHERITE_DRILL_HEAD);
-                    entries.add(ModItems.EMERALD_DRILL_HEAD);
-                    entries.add(ModBlocks.ORE_MINER);
-                    entries.add(ModBlocks.ORE_SCANNER);
-                    entries.add(ModBlocks.TESLA_COIL);
-                }))
-                .build());
+    public static void register() {
+        Registry.register(
+                Registries.ITEM_GROUP,
+                TECH_MOD_ITEM_GROUP,
+                FabricItemGroup.builder()
+                        .displayName(Text.translatable("itemGroup.tech_mod.tech_mod_item_group"))
+                        .icon(() -> new ItemStack(ModItems.COPPER_DRILL_HEAD))
+                        .entries(
+                                ((displayContext, entries) -> {
+                                    entries.add(ModItems.DRILL);
+                                    entries.add(ModItems.COPPER_DRILL_HEAD);
+                                    entries.add(ModItems.IRON_DRILL_HEAD);
+                                    entries.add(ModItems.GOLDEN_DRILL_HEAD);
+                                    entries.add(ModItems.DIAMOND_DRILL_HEAD);
+                                    entries.add(ModItems.NETHERITE_DRILL_HEAD);
+                                    entries.add(ModItems.EMERALD_DRILL_HEAD);
+                                    entries.add(ModBlocks.ORE_MINER);
+                                    entries.add(ModBlocks.ORE_SCANNER);
+                                    entries.add(ModBlocks.TESLA_COIL);
+                                }))
+                        .build());
     }
 }

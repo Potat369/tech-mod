@@ -11,6 +11,7 @@ import techmod.TechMod;
 public class DrillScreen extends HandledScreen<DrillScreenHandler> {
 
     private static final Identifier TEXTURE = TechMod.idOf("textures/gui/container/drill.png");
+
     public DrillScreen(DrillScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         playerInventoryTitleY = 38;
@@ -18,11 +19,19 @@ public class DrillScreen extends HandledScreen<DrillScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-
-
         int i = (width - backgroundWidth) / 2;
         int j = (height - backgroundHeight) / 2;
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, backgroundWidth, backgroundHeight,256,256);
+        context.drawTexture(
+                RenderLayer::getGuiTextured,
+                TEXTURE,
+                i,
+                j,
+                0.0F,
+                0.0F,
+                backgroundWidth,
+                backgroundHeight,
+                256,
+                256);
     }
 
     @Override

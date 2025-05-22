@@ -24,13 +24,20 @@ import java.util.List;
 
 public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
-        super(settings.maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+        super(
+                settings.maxCount(1)
+                        .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
     }
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if(!world.isClient) {
-            user.openHandledScreen(new SimpleNamedScreenHandlerFactory(((syncId, playerInventory, player) -> new DrillScreenHandler(syncId, playerInventory, user.getStackInHand(hand))), Text.translatable(ModItems.DRILL.getTranslationKey())));
+        if (!world.isClient) {
+            user.openHandledScreen(
+                    new SimpleNamedScreenHandlerFactory(
+                            ((syncId, playerInventory, player) ->
+                                    new DrillScreenHandler(
+                                            syncId, playerInventory, user.getStackInHand(hand))),
+                            Text.translatable(ModItems.DRILL.getTranslationKey())));
         }
         return ActionResult.CONSUME;
     }
@@ -38,23 +45,26 @@ public class DrillItem extends Item implements TechEnergyItem {
     public void updateDrillHead(ItemStack stack) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (!drillHead.isEmpty()) {
-            stack.set(DataComponentTypes.TOOL, new ToolComponent(drillHead.get(ModComponents.RULES), 1f, 1, true));
-        }
-        else {
+            stack.set(
+                    DataComponentTypes.TOOL,
+                    new ToolComponent(drillHead.get(ModComponents.RULES), 1f, 1, true));
+        } else {
             stack.remove(DataComponentTypes.TOOL);
         }
     }
 
     @Override
-    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+    public boolean postMine(
+            ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (!drillHead.isEmpty()) {
             drillHead.damage(1, miner, EquipmentSlot.MAINHAND);
-            stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(List.of(drillHead)));
+            stack.set(
+                    DataComponentTypes.CONTAINER,
+                    ContainerComponent.fromStacks(List.of(drillHead)));
             updateDrillHead(stack);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

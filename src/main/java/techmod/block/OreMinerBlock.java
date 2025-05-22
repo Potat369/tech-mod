@@ -28,7 +28,8 @@ public class OreMinerBlock extends BlockWithEntity {
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+            World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.ORE_MINER, OreMinerBlockEntity::tick);
     }
 }

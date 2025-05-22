@@ -6,13 +6,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 
 public class EnergySetterScreen extends HandledScreen<EnergySetterScreenHandler> {
-    public EnergySetterScreen(EnergySetterScreenHandler handler, PlayerInventory inventory, Text title) {
+    public EnergySetterScreen(
+            EnergySetterScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-
-    }
+    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {}
 }

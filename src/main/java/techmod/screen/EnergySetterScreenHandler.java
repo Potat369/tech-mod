@@ -9,6 +9,7 @@ import techmod.registry.ModScreenHandlers;
 
 public class EnergySetterScreenHandler extends ScreenHandler {
     private final PlayerInventory inventory;
+
     public EnergySetterScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(ModScreenHandlers.ENERGY_SETTER_SCREEN_HANDLER, syncId);
         inventory = playerInventory;

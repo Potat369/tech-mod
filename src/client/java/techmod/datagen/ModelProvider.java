@@ -21,7 +21,8 @@ public class ModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSingleton(ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
+        blockStateModelGenerator.registerSingleton(
+                ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
     }
 
     @Override
@@ -59,7 +60,8 @@ public class ModelProvider extends FabricModelProvider {
                 ItemModels.composite(
                         ItemModels.basic(
                                 new Model(
-                                                Optional.of(TechMod.idOf("item/drill_model_offset")),
+                                                Optional.of(
+                                                        TechMod.idOf("item/drill_model_offset")),
                                                 Optional.empty(),
                                                 TextureKey.LAYER0)
                                         .upload(

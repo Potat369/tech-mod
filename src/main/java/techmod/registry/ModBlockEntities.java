@@ -10,13 +10,13 @@ import techmod.TechMod;
 import techmod.block.entity.OreMinerBlockEntity;
 
 public class ModBlockEntities {
-    public static final BlockEntityType<OreMinerBlockEntity> ORE_MINER = register("ore_miner", OreMinerBlockEntity::new, ModBlocks.ORE_MINER);
+    public static final BlockEntityType<OreMinerBlockEntity> ORE_MINER =
+            register("ore_miner", OreMinerBlockEntity::new, ModBlocks.ORE_MINER);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
-            Block... blocks
-    ) {
+            Block... blocks) {
         return Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,
                 TechMod.idOf(name),

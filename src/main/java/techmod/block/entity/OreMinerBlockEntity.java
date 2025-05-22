@@ -26,7 +26,8 @@ public class OreMinerBlockEntity extends BlockEntity {
         super(ModBlockEntities.ORE_MINER, pos, state);
     }
 
-    public static void tick(World world, BlockPos blockPos, BlockState blockState, OreMinerBlockEntity entity) {
+    public static void tick(
+            World world, BlockPos blockPos, BlockState blockState, OreMinerBlockEntity entity) {
         if (!world.isClient()) {
             if (entity.timer++ >= OreMinerBlockEntity.SPEED) {
                 entity.timer = 0;
@@ -37,26 +38,41 @@ public class OreMinerBlockEntity extends BlockEntity {
                     for (var block : entity.ores.keySet()) {
                         for (var pos : entity.ores.get(block)) {
                             entity.ores.get(block).remove(pos);
-                            if (world.getBlockState(pos).getBlock() == block && world.breakBlock(pos, false)) {
-                                var inventory = HopperBlockEntity.getInventoryAt(world, blockPos.up());
+                            if (world.getBlockState(pos).getBlock() == block
+                                    && world.breakBlock(pos, false)) {
+                                var inventory =
+                                        HopperBlockEntity.getInventoryAt(world, blockPos.up());
                                 if (inventory != null) {
-                                    var insertableSlot = getInsertableSlot(inventory, block.asItem().getDefaultStack());
+                                    var insertableSlot =
+                                            getInsertableSlot(
+                                                    inventory, block.asItem().getDefaultStack());
                                     if (insertableSlot == -1) {
-                                        world.spawnEntity(new ItemEntity(world, blockPos.toCenterPos().x, blockPos.toCenterPos().y + 1, blockPos.toCenterPos().z, block.asItem().getDefaultStack()));
-                                    }
-                                    else {
+                                        world.spawnEntity(
+                                                new ItemEntity(
+                                                        world,
+                                                        blockPos.toCenterPos().x,
+                                                        blockPos.toCenterPos().y + 1,
+                                                        blockPos.toCenterPos().z,
+                                                        block.asItem().getDefaultStack()));
+                                    } else {
                                         var newStack = inventory.getStack(insertableSlot);
                                         if (newStack.isEmpty()) {
-                                            inventory.setStack(insertableSlot, block.asItem().getDefaultStack());
-                                        }
-                                        else {
+                                            inventory.setStack(
+                                                    insertableSlot,
+                                                    block.asItem().getDefaultStack());
+                                        } else {
                                             newStack.increment(1);
                                             inventory.setStack(insertableSlot, newStack);
                                         }
                                     }
-                                }
-                                else {
-                                    world.spawnEntity(new ItemEntity(world, blockPos.toCenterPos().x, blockPos.toCenterPos().y + 1, blockPos.toCenterPos().z, block.asItem().getDefaultStack()));
+                                } else {
+                                    world.spawnEntity(
+                                            new ItemEntity(
+                                                    world,
+                                                    blockPos.toCenterPos().x,
+                                                    blockPos.toCenterPos().y + 1,
+                                                    blockPos.toCenterPos().z,
+                                                    block.asItem().getDefaultStack()));
                                 }
                                 return;
                             }
@@ -70,7 +86,8 @@ public class OreMinerBlockEntity extends BlockEntity {
     public static int getInsertableSlot(Inventory inventory, ItemStack stack) {
         for (var i = 0; i < inventory.size(); i++) {
             var slotStack = inventory.getStack(i);
-            if (slotStack.getCount() < slotStack.getMaxCount() && (slotStack.isOf(stack.getItem()) || slotStack.isEmpty())) {
+            if (slotStack.getCount() < slotStack.getMaxCount()
+                    && (slotStack.isOf(stack.getItem()) || slotStack.isEmpty())) {
                 return i;
             }
         }

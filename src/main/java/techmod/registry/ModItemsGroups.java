@@ -24,6 +24,9 @@ public class ModItemsGroups {
                     entries.add(ModItems.DIAMOND_DRILL_HEAD);
                     entries.add(ModItems.NETHERITE_DRILL_HEAD);
                     entries.add(ModItems.EMERALD_DRILL_HEAD);
+                    entries.add(ModBlocks.ORE_MINER);
+                    entries.add(ModBlocks.ORE_SCANNER);
+                    entries.add(ModBlocks.TESLA_COIL);
                 }))
                 .build());
     }

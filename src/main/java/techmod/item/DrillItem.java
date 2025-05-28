@@ -42,6 +42,12 @@ public class DrillItem extends Item implements TechEnergyItem {
         return ActionResult.CONSUME;
     }
 
+    @Override
+    public float getMiningSpeed(ItemStack stack, BlockState state) {
+        var defaultValue = super.getMiningSpeed(stack, state);
+        return getStoredEnergy(stack) >= getEnergyMaxOutput(stack) ? defaultValue : 1f;
+    }
+
     public void updateDrillHead(ItemStack stack) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (!drillHead.isEmpty()) {
@@ -63,6 +69,7 @@ public class DrillItem extends Item implements TechEnergyItem {
                     DataComponentTypes.CONTAINER,
                     ContainerComponent.fromStacks(List.of(drillHead)));
             updateDrillHead(stack);
+            tryUseEnergy(stack, getEnergyMaxOutput(stack));
             return true;
         } else {
             return false;

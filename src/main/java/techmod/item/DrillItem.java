@@ -17,12 +17,16 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import techmod.api.TechEnergyItem;
 import techmod.registry.ModComponents;
 import techmod.registry.ModItems;
+import techmod.registry.ModTags;
 import techmod.screen.DrillScreenHandler;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
@@ -116,11 +120,22 @@ public class DrillItem extends Item implements TechEnergyItem {
 
     @Override
     public long getEnergyMaxInput(ItemStack itemStack) {
-        return 32;
+        return 40;
+    }
+
+    public static Stream<ItemStack> getModules(ItemStack drill) {
+        var containerComponent = drill.get(DataComponentTypes.CONTAINER);
+        if (containerComponent == null) return Stream.empty();
+        return containerComponent.streamNonEmpty().filter(stack -> stack.isIn(ModTags.MODULES));
     }
 
     @Override
     public long getEnergyMaxOutput(ItemStack itemStack) {
-        return 32;
+        var modules = getModules(itemStack);
+        var additionalEnergy = new AtomicLong();
+        modules.forEach(module -> {
+            additionalEnergy.addAndGet(module.get(ModComponents.MODULE).energyConsumption());
+        });
+        return 40 + additionalEnergy.get();
     }
 }

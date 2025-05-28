@@ -4,7 +4,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
@@ -15,9 +14,11 @@ import techmod.registry.ModItems;
 import techmod.registry.ModScreenHandlers;
 import techmod.registry.ModTags;
 
+import java.util.Iterator;
+
 public class DrillScreenHandler extends ScreenHandler {
 
-    private final Inventory inventory;
+    private final SimpleInventory inventory;
     private final ItemStack drill;
 
     public DrillScreenHandler(int syncId, PlayerInventory playerInventory) {
@@ -26,13 +27,20 @@ public class DrillScreenHandler extends ScreenHandler {
 
     public DrillScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack drillStack) {
         super(ModScreenHandlers.DRILL_SCREEN_HANDLER, syncId);
-        this.inventory = new SimpleInventory(1);
+        this.inventory = new SimpleInventory(7);
         drill = drillStack;
-        inventory.setStack(
-                0,
-                drillStack
-                        .getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
-                        .copyFirstStack());
+
+        ContainerComponent container = drillStack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
+        Iterator<ItemStack> iterator = container.stream().iterator();
+        int i = 0;
+        while (iterator.hasNext() && i < inventory.size()) {
+            inventory.setStack(i, iterator.next().copy());
+            i++;
+        }
+
+        this.addSlot(new Slot(inventory, 1, 8, 18));
+        this.addSlot(new Slot(inventory, 2, 26, 18));
+        this.addSlot(new Slot(inventory, 3, 44, 18));
         this.addSlot(
                 new Slot(inventory, 0, 80, 18) {
                     @Override
@@ -41,22 +49,22 @@ public class DrillScreenHandler extends ScreenHandler {
                     }
 
                     @Override
-                    public void markDirty() {
-                        drill.set(
-                                DataComponentTypes.CONTAINER,
-                                ContainerComponent.fromStacks(
-                                        Lists.newArrayList(inventory.iterator())));
-                        if (drill.getItem() instanceof DrillItem drillItem) {
-                            drillItem.updateDrillHead(drill);
-                        }
-                        super.markDirty();
-                    }
-
-                    @Override
                     public boolean canInsert(ItemStack stack) {
                         return stack.isIn(ModTags.DRILL_HEADS);
                     }
                 });
+        this.addSlot(new Slot(inventory, 4, 116, 18));
+        this.addSlot(new Slot(inventory, 5, 134, 18));
+        this.addSlot(new Slot(inventory, 6, 152, 18));
+        inventory.addListener(sender -> {
+            drill.set(
+                    DataComponentTypes.CONTAINER,
+                    ContainerComponent.fromStacks(
+                            Lists.newArrayList(inventory.iterator())));
+            if (drill.getItem() instanceof DrillItem drillItem) {
+                drillItem.updateDrillHead(drill);
+            }
+        });
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
     }

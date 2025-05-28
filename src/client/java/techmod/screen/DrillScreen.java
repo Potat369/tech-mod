@@ -1,12 +1,15 @@
 package techmod.screen;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import techmod.TechMod;
+import techmod.api.TechEnergyItem;
 
 public class DrillScreen extends HandledScreen<DrillScreenHandler> {
 
@@ -32,6 +35,12 @@ public class DrillScreen extends HandledScreen<DrillScreenHandler> {
                 backgroundHeight,
                 256,
                 256);
+        var drill = MinecraftClient.getInstance().player.getMainHandStack();
+        if (drill.getItem() instanceof TechEnergyItem energyItem) {
+            var fill =
+                    (float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill);
+            context.fill(i + 98, j + 34, i + 100, j + (int)(34 - 16 * fill), ColorHelper.fullAlpha(energyItem.getEnergyBarColor(drill)));
+        }
     }
 
     @Override

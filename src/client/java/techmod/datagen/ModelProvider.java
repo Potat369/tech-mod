@@ -33,6 +33,20 @@ public class ModelProvider extends FabricModelProvider {
         generateDrillHead(itemModelGenerator, ModItems.NETHERITE_DRILL_HEAD);
         generateDrillHead(itemModelGenerator, ModItems.DIAMOND_DRILL_HEAD);
         generateDrillHead(itemModelGenerator, ModItems.GOLDEN_DRILL_HEAD);
+        itemModelGenerator.register(ModItems.MODULE_DEPTH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_WIDTH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_HEIGHT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_1, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_2, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_3, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_4, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_5, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_FORTUNE_1, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_FORTUNE_2, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_FORTUNE_3, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_MAGNETISM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_SILK_TOUCH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_ENERGY_EFFICIENCY, Models.GENERATED);
         generateDrill(itemModelGenerator, ModItems.DRILL);
     }
 

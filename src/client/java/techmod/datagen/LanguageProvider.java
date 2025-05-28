@@ -34,5 +34,19 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModBlocks.ORE_MINER, "Ore Miner");
         translationBuilder.add(ModBlocks.ORE_SCANNER, "Ore Scanner");
         translationBuilder.add(ModBlocks.TESLA_COIL, "Tesla Coil");
+        translationBuilder.add(ModItems.MODULE_EFFICIENCY_1, "Efficiency Module I");
+        translationBuilder.add(ModItems.MODULE_EFFICIENCY_2, "Efficiency Module II");
+        translationBuilder.add(ModItems.MODULE_EFFICIENCY_3, "Efficiency Module III");
+        translationBuilder.add(ModItems.MODULE_EFFICIENCY_4, "Efficiency Module IV");
+        translationBuilder.add(ModItems.MODULE_EFFICIENCY_5, "Efficiency Module V");
+        translationBuilder.add(ModItems.MODULE_FORTUNE_1, "Fortune Module I");
+        translationBuilder.add(ModItems.MODULE_FORTUNE_2, "Fortune Module II");
+        translationBuilder.add(ModItems.MODULE_FORTUNE_3, "Fortune Module III");
+        translationBuilder.add(ModItems.MODULE_SILK_TOUCH, "Silk Touch Module");
+        translationBuilder.add(ModItems.MODULE_MAGNETISM, "Magnetism Module");
+        translationBuilder.add(ModItems.MODULE_DEPTH, "Depth Module");
+        translationBuilder.add(ModItems.MODULE_HEIGHT, "Height Module");
+        translationBuilder.add(ModItems.MODULE_WIDTH, "Width Module");
+        translationBuilder.add(ModItems.MODULE_ENERGY_EFFICIENCY, "Energy Efficiency Module");
     }
 }

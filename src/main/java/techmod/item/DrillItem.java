@@ -9,6 +9,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -51,9 +53,22 @@ public class DrillItem extends Item implements TechEnergyItem {
     public void updateDrillHead(ItemStack stack) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (!drillHead.isEmpty()) {
+            var blocksRegistry = Registries.BLOCK;
+            var drillHeadComponent = drillHead.get(ModComponents.DRILL_HEAD);
             stack.set(
                     DataComponentTypes.TOOL,
-                    new ToolComponent(drillHead.get(ModComponents.RULES), 1f, 1, true));
+                    new ToolComponent(
+                            List.of(
+                                    drillHeadComponent.rule(),
+                                    ToolComponent.Rule.ofAlwaysDropping(
+                                            blocksRegistry.getOrThrow(BlockTags.PICKAXE_MINEABLE),
+                                            drillHeadComponent.speed()),
+                                    ToolComponent.Rule.ofAlwaysDropping(
+                                            blocksRegistry.getOrThrow(BlockTags.SHOVEL_MINEABLE),
+                                            drillHeadComponent.speed())),
+                            1f,
+                            1,
+                            true));
         } else {
             stack.remove(DataComponentTypes.TOOL);
         }

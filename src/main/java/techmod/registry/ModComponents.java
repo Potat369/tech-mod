@@ -1,22 +1,19 @@
 package techmod.registry;
 
 import net.minecraft.component.ComponentType;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import techmod.TechMod;
 
-import java.util.List;
+import techmod.TechMod;
+import techmod.component.type.DrillHeadComponent;
 
 public class ModComponents {
-    public static final ComponentType<List<ToolComponent.Rule>> RULES =
+    public static final ComponentType<DrillHeadComponent> DRILL_HEAD =
             register(
-                    "rules",
-                    ComponentType.<List<ToolComponent.Rule>>builder()
-                            .codec(ToolComponent.Rule.CODEC.listOf())
-                            .packetCodec(
-                                    ToolComponent.Rule.PACKET_CODEC.collect(PacketCodecs.toList()))
+                    "drill_head",
+                    ComponentType.<DrillHeadComponent>builder()
+                            .codec(DrillHeadComponent.CODEC)
+                            .packetCodec(DrillHeadComponent.PACKET_CODEC)
                             .build());
 
     private static <T> ComponentType<T> register(String name, ComponentType<T> type) {

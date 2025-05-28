@@ -9,12 +9,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import techmod.TechMod;
+import techmod.component.type.DrillHeadComponent;
 import techmod.item.DrillItem;
 import techmod.item.ModToolMaterials;
 
-import java.util.List;
 import java.util.function.Function;
 
 public class ModItems {
@@ -65,15 +64,12 @@ public class ModItems {
                         .repairable(toolMaterial.repairItems())
                         .maxDamage(Math.round(toolMaterial.durability() * 0.75f))
                         .component(
-                                ModComponents.RULES,
-                                List.of(
+                                ModComponents.DRILL_HEAD,
+                                new DrillHeadComponent(
+                                        toolMaterial.speed(),
                                         ToolComponent.Rule.ofNeverDropping(
                                                 registryEntryLookup.getOrThrow(
-                                                        toolMaterial.incorrectBlocksForDrops())),
-                                        ToolComponent.Rule.ofAlwaysDropping(
-                                                registryEntryLookup.getOrThrow(
-                                                        BlockTags.PICKAXE_MINEABLE),
-                                                toolMaterial.speed()))));
+                                                        toolMaterial.incorrectBlocksForDrops())))));
     }
 
     public static void init() {}

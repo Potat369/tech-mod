@@ -20,33 +20,32 @@ public class ModItemsGroups {
                 FabricItemGroup.builder()
                         .displayName(Text.translatable("itemGroup.tech_mod.tech_mod_item_group"))
                         .icon(() -> new ItemStack(ModItems.COPPER_DRILL_HEAD))
-                        .entries(
-                                ((displayContext, entries) -> {
-                                    entries.add(ModItems.DRILL);
-                                    entries.add(ModItems.COPPER_DRILL_HEAD);
-                                    entries.add(ModItems.IRON_DRILL_HEAD);
-                                    entries.add(ModItems.GOLDEN_DRILL_HEAD);
-                                    entries.add(ModItems.DIAMOND_DRILL_HEAD);
-                                    entries.add(ModItems.NETHERITE_DRILL_HEAD);
-                                    entries.add(ModItems.EMERALD_DRILL_HEAD);
-                                    entries.add(ModItems.MODULE_EFFICIENCY_1);
-                                    entries.add(ModItems.MODULE_EFFICIENCY_2);
-                                    entries.add(ModItems.MODULE_EFFICIENCY_3);
-                                    entries.add(ModItems.MODULE_EFFICIENCY_4);
-                                    entries.add(ModItems.MODULE_EFFICIENCY_5);
-                                    entries.add(ModItems.MODULE_DEPTH);
-                                    entries.add(ModItems.MODULE_WIDTH);
-                                    entries.add(ModItems.MODULE_HEIGHT);
-                                    entries.add(ModItems.MODULE_FORTUNE_1);
-                                    entries.add(ModItems.MODULE_FORTUNE_2);
-                                    entries.add(ModItems.MODULE_FORTUNE_3);
-                                    entries.add(ModItems.MODULE_ENERGY_EFFICIENCY);
-                                    entries.add(ModItems.MODULE_MAGNETISM);
-                                    entries.add(ModItems.MODULE_SILK_TOUCH);
-                                    entries.add(ModBlocks.ORE_MINER);
-                                    entries.add(ModBlocks.ORE_SCANNER);
-                                    entries.add(ModBlocks.TESLA_COIL);
-                                }))
+                        .entries(((displayContext, entries) -> {
+                            entries.add(ModItems.DRILL);
+                            entries.add(ModItems.COPPER_DRILL_HEAD);
+                            entries.add(ModItems.IRON_DRILL_HEAD);
+                            entries.add(ModItems.GOLDEN_DRILL_HEAD);
+                            entries.add(ModItems.DIAMOND_DRILL_HEAD);
+                            entries.add(ModItems.NETHERITE_DRILL_HEAD);
+                            entries.add(ModItems.EMERALD_DRILL_HEAD);
+                            entries.add(ModItems.MODULE_EFFICIENCY_1);
+                            entries.add(ModItems.MODULE_EFFICIENCY_2);
+                            entries.add(ModItems.MODULE_EFFICIENCY_3);
+                            entries.add(ModItems.MODULE_EFFICIENCY_4);
+                            entries.add(ModItems.MODULE_EFFICIENCY_5);
+                            entries.add(ModItems.MODULE_DEPTH);
+                            entries.add(ModItems.MODULE_WIDTH);
+                            entries.add(ModItems.MODULE_HEIGHT);
+                            entries.add(ModItems.MODULE_FORTUNE_1);
+                            entries.add(ModItems.MODULE_FORTUNE_2);
+                            entries.add(ModItems.MODULE_FORTUNE_3);
+                            entries.add(ModItems.MODULE_ENERGY_EFFICIENCY);
+                            entries.add(ModItems.MODULE_MAGNETISM);
+                            entries.add(ModItems.MODULE_SILK_TOUCH);
+                            entries.add(ModBlocks.ORE_MINER);
+                            entries.add(ModBlocks.ORE_SCANNER);
+                            entries.add(ModBlocks.TESLA_COIL);
+                        }))
                         .build());
     }
 }

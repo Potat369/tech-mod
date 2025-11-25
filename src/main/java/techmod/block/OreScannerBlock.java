@@ -18,8 +18,7 @@ public class OreScannerBlock extends Block {
     }
 
     @Override
-    protected ActionResult onUse(
-            BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
             var blockSet = OreMinerBlockEntity.getOresInChunk(world, pos);
             for (Block block : blockSet.keySet()) {

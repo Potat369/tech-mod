@@ -12,8 +12,7 @@ import java.util.concurrent.CompletableFuture;
 public class LanguageProvider extends FabricLanguageProvider {
 
     public LanguageProvider(
-            FabricDataOutput dataOutput,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+            FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
     }
 

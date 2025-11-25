@@ -11,10 +11,7 @@ public interface TechEnergyItem extends SimpleEnergyItem {
 
     default int getEnergyBarStep(ItemStack stack) {
         return MathHelper.clamp(
-                Math.round(
-                        (float) this.getStoredEnergy(stack) / this.getEnergyCapacity(stack) * 13f),
-                0,
-                13);
+                Math.round((float) this.getStoredEnergy(stack) / this.getEnergyCapacity(stack) * 13f), 0, 13);
     }
 
     default int getEnergyBarColor(ItemStack stack) {

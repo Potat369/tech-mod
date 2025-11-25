@@ -17,7 +17,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import techmod.api.TechEnergyItem;
 import techmod.registry.ModComponents;
 import techmod.registry.ModItems;
@@ -30,20 +29,22 @@ import java.util.stream.Stream;
 
 public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
-        super(
-                settings.maxCount(1)
-                        .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+        super(settings.maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
+    }
+
+    public static Stream<ItemStack> getModules(ItemStack drill) {
+        var containerComponent = drill.get(DataComponentTypes.CONTAINER);
+        if (containerComponent == null) return Stream.empty();
+        return containerComponent.streamNonEmpty().filter(stack -> stack.isIn(ModTags.MODULES));
     }
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient) {
-            user.openHandledScreen(
-                    new SimpleNamedScreenHandlerFactory(
-                            ((syncId, playerInventory, player) ->
-                                    new DrillScreenHandler(
-                                            syncId, playerInventory, user.getStackInHand(hand))),
-                            Text.translatable(ModItems.DRILL.getTranslationKey())));
+            user.openHandledScreen(new SimpleNamedScreenHandlerFactory(
+                    ((syncId, playerInventory, player) ->
+                            new DrillScreenHandler(syncId, playerInventory, user.getStackInHand(hand))),
+                    Text.translatable(ModItems.DRILL.getTranslationKey())));
         }
         return ActionResult.CONSUME;
     }
@@ -79,14 +80,11 @@ public class DrillItem extends Item implements TechEnergyItem {
     }
 
     @Override
-    public boolean postMine(
-            ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         if (!drillHead.isEmpty()) {
             drillHead.damage(1, miner, EquipmentSlot.MAINHAND);
-            stack.set(
-                    DataComponentTypes.CONTAINER,
-                    ContainerComponent.fromStacks(List.of(drillHead)));
+            stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(List.of(drillHead)));
             updateDrillHead(stack);
             tryUseEnergy(stack, getEnergyMaxOutput(stack));
             return true;
@@ -121,12 +119,6 @@ public class DrillItem extends Item implements TechEnergyItem {
     @Override
     public long getEnergyMaxInput(ItemStack itemStack) {
         return 40;
-    }
-
-    public static Stream<ItemStack> getModules(ItemStack drill) {
-        var containerComponent = drill.get(DataComponentTypes.CONTAINER);
-        if (containerComponent == null) return Stream.empty();
-        return containerComponent.streamNonEmpty().filter(stack -> stack.isIn(ModTags.MODULES));
     }
 
     @Override

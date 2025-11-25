@@ -9,9 +9,7 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.concurrent.CompletableFuture;
 
 public class RecipeProvider extends FabricRecipeProvider {
-    public RecipeProvider(
-            FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public RecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 

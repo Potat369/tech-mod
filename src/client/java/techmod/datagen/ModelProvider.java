@@ -21,8 +21,7 @@ public class ModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSingleton(
-                ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
+        blockStateModelGenerator.registerSingleton(ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
     }
 
     @Override
@@ -55,15 +54,14 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.registerCondition(
                 item,
                 new CustomModelDataFlagProperty(0),
-                ItemModels.basic(
-                        new Model(
-                                        Optional.of(TechMod.idOf("item/drill_head_offset")),
-                                        Optional.empty(),
-                                        TextureKey.LAYER0)
-                                .upload(
-                                        ModelIds.getItemModelId(item).withSuffixedPath("_offset"),
-                                        TextureMap.layer0(ModelIds.getItemModelId(item)),
-                                        itemModelGenerator.modelCollector)),
+                ItemModels.basic(new Model(
+                                Optional.of(TechMod.idOf("item/drill_head_offset")),
+                                Optional.empty(),
+                                TextureKey.LAYER0)
+                        .upload(
+                                ModelIds.getItemModelId(item).withSuffixedPath("_offset"),
+                                TextureMap.layer0(ModelIds.getItemModelId(item)),
+                                itemModelGenerator.modelCollector)),
                 ItemModels.basic(a));
     }
 
@@ -72,17 +70,14 @@ public class ModelProvider extends FabricModelProvider {
                 item,
                 new HasDrillHeadProperty(),
                 ItemModels.composite(
-                        ItemModels.basic(
-                                new Model(
-                                                Optional.of(
-                                                        TechMod.idOf("item/drill_model_offset")),
-                                                Optional.empty(),
-                                                TextureKey.LAYER0)
-                                        .upload(
-                                                ModelIds.getItemModelId(item)
-                                                        .withSuffixedPath("_offset"),
-                                                TextureMap.layer0(ModelIds.getItemModelId(item)),
-                                                itemModelGenerator.modelCollector)),
+                        ItemModels.basic(new Model(
+                                        Optional.of(TechMod.idOf("item/drill_model_offset")),
+                                        Optional.empty(),
+                                        TextureKey.LAYER0)
+                                .upload(
+                                        ModelIds.getItemModelId(item).withSuffixedPath("_offset"),
+                                        TextureMap.layer0(ModelIds.getItemModelId(item)),
+                                        itemModelGenerator.modelCollector)),
                         new DrillHeadItemModel.Unbaked()),
                 ItemModels.basic(itemModelGenerator.upload(item, Models.HANDHELD)));
     }

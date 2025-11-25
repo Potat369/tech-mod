@@ -19,16 +19,12 @@ import java.util.function.Function;
 
 public class ModItems {
 
-    public static final Item COPPER_DRILL_HEAD =
-            registerDrillHead("copper", ModToolMaterials.COPPER);
+    public static final Item COPPER_DRILL_HEAD = registerDrillHead("copper", ModToolMaterials.COPPER);
     public static final Item IRON_DRILL_HEAD = registerDrillHead("iron", ToolMaterial.IRON);
     public static final Item GOLDEN_DRILL_HEAD = registerDrillHead("golden", ToolMaterial.GOLD);
-    public static final Item DIAMOND_DRILL_HEAD =
-            registerDrillHead("diamond", ToolMaterial.DIAMOND);
-    public static final Item EMERALD_DRILL_HEAD =
-            registerDrillHead("emerald", ModToolMaterials.EMERALD);
-    public static final Item NETHERITE_DRILL_HEAD =
-            registerDrillHead("netherite", ToolMaterial.NETHERITE);
+    public static final Item DIAMOND_DRILL_HEAD = registerDrillHead("diamond", ToolMaterial.DIAMOND);
+    public static final Item EMERALD_DRILL_HEAD = registerDrillHead("emerald", ModToolMaterials.EMERALD);
+    public static final Item NETHERITE_DRILL_HEAD = registerDrillHead("netherite", ToolMaterial.NETHERITE);
     public static final Item DRILL = registerItem("drill", DrillItem::new, new Item.Settings());
     public static final Item MODULE_DEPTH = registerModule("depth", 10);
     public static final Item MODULE_WIDTH = registerModule("width", 10);
@@ -45,8 +41,7 @@ public class ModItems {
     public static final Item MODULE_MAGNETISM = registerModule("magnetism", 5);
     public static final Item MODULE_SILK_TOUCH = registerModule("silk_touch", 5);
 
-    private static Item registerItem(
-            String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+    private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, TechMod.idOf(name));
         return Items.register(itemKey, factory, settings);
     }
@@ -61,8 +56,7 @@ public class ModItems {
     }
 
     private static Item registerDrillHead(String material, ToolMaterial toolMaterial) {
-        RegistryEntryLookup<Block> registryEntryLookup =
-                Registries.createEntryLookup(Registries.BLOCK);
+        RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
         return registerItem(
                 material + "_drill_head",
                 Item::new,
@@ -73,9 +67,8 @@ public class ModItems {
                                 ModComponents.DRILL_HEAD,
                                 new DrillHeadComponent(
                                         toolMaterial.speed(),
-                                        ToolComponent.Rule.ofNeverDropping(
-                                                registryEntryLookup.getOrThrow(
-                                                        toolMaterial.incorrectBlocksForDrops())))));
+                                        ToolComponent.Rule.ofNeverDropping(registryEntryLookup.getOrThrow(
+                                                toolMaterial.incorrectBlocksForDrops())))));
     }
 
     public static void init() {}

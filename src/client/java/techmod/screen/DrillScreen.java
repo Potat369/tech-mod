@@ -25,21 +25,16 @@ public class DrillScreen extends HandledScreen<DrillScreenHandler> {
         int i = (width - backgroundWidth) / 2;
         int j = (height - backgroundHeight) / 2;
         context.drawTexture(
-                RenderLayer::getGuiTextured,
-                TEXTURE,
-                i,
-                j,
-                0.0F,
-                0.0F,
-                backgroundWidth,
-                backgroundHeight,
-                256,
-                256);
+                RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, backgroundWidth, backgroundHeight, 256, 256);
         var drill = MinecraftClient.getInstance().player.getMainHandStack();
         if (drill.getItem() instanceof TechEnergyItem energyItem) {
-            var fill =
-                    (float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill);
-            context.fill(i + 98, j + 34, i + 100, j + (int)(34 - 16 * fill), ColorHelper.fullAlpha(energyItem.getEnergyBarColor(drill)));
+            var fill = (float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill);
+            context.fill(
+                    i + 98,
+                    j + 34,
+                    i + 100,
+                    j + (int) (34 - 16 * fill),
+                    ColorHelper.fullAlpha(energyItem.getEnergyBarColor(drill)));
         }
     }
 

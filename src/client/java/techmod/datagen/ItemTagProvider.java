@@ -12,9 +12,7 @@ import techmod.registry.ModTags;
 import java.util.concurrent.CompletableFuture;
 
 public class ItemTagProvider extends FabricTagProvider<Item> {
-    public ItemTagProvider(
-            FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, RegistryKeys.ITEM, registriesFuture);
     }
 

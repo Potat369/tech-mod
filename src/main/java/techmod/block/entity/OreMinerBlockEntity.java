@@ -18,16 +18,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class OreMinerBlockEntity extends BlockEntity {
-    private HashMap<Block, HashSet<BlockPos>> ores;
     private static final int SPEED = 5;
+    private HashMap<Block, HashSet<BlockPos>> ores;
     private int timer;
 
     public OreMinerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ORE_MINER, pos, state);
     }
 
-    public static void tick(
-            World world, BlockPos blockPos, BlockState blockState, OreMinerBlockEntity entity) {
+    public static void tick(World world, BlockPos blockPos, BlockState blockState, OreMinerBlockEntity entity) {
         if (!world.isClient()) {
             if (entity.timer++ >= OreMinerBlockEntity.SPEED) {
                 entity.timer = 0;
@@ -38,22 +37,18 @@ public class OreMinerBlockEntity extends BlockEntity {
                     for (var block : entity.ores.keySet()) {
                         for (var pos : entity.ores.get(block)) {
                             entity.ores.get(block).remove(pos);
-                            if (world.getBlockState(pos).getBlock() == block
-                                    && world.breakBlock(pos, false)) {
-                                var inventory =
-                                        HopperBlockEntity.getInventoryAt(world, blockPos.up());
+                            if (world.getBlockState(pos).getBlock() == block && world.breakBlock(pos, false)) {
+                                var inventory = HopperBlockEntity.getInventoryAt(world, blockPos.up());
                                 if (inventory != null) {
-                                    var insertableSlot =
-                                            getInsertableSlot(
-                                                    inventory, block.asItem().getDefaultStack());
+                                    var insertableSlot = getInsertableSlot(
+                                            inventory, block.asItem().getDefaultStack());
                                     if (insertableSlot == -1) {
-                                        world.spawnEntity(
-                                                new ItemEntity(
-                                                        world,
-                                                        blockPos.toCenterPos().x,
-                                                        blockPos.toCenterPos().y + 1,
-                                                        blockPos.toCenterPos().z,
-                                                        block.asItem().getDefaultStack()));
+                                        world.spawnEntity(new ItemEntity(
+                                                world,
+                                                blockPos.toCenterPos().x,
+                                                blockPos.toCenterPos().y + 1,
+                                                blockPos.toCenterPos().z,
+                                                block.asItem().getDefaultStack()));
                                     } else {
                                         var newStack = inventory.getStack(insertableSlot);
                                         if (newStack.isEmpty()) {
@@ -66,13 +61,12 @@ public class OreMinerBlockEntity extends BlockEntity {
                                         }
                                     }
                                 } else {
-                                    world.spawnEntity(
-                                            new ItemEntity(
-                                                    world,
-                                                    blockPos.toCenterPos().x,
-                                                    blockPos.toCenterPos().y + 1,
-                                                    blockPos.toCenterPos().z,
-                                                    block.asItem().getDefaultStack()));
+                                    world.spawnEntity(new ItemEntity(
+                                            world,
+                                            blockPos.toCenterPos().x,
+                                            blockPos.toCenterPos().y + 1,
+                                            blockPos.toCenterPos().z,
+                                            block.asItem().getDefaultStack()));
                                 }
                                 return;
                             }
@@ -95,18 +89,11 @@ public class OreMinerBlockEntity extends BlockEntity {
     }
 
     public static HashMap<Block, HashSet<BlockPos>> getOresInChunk(World world, BlockPos blockPos) {
-        var ores =
-                new HashMap<Block, HashSet<BlockPos>>(
-                        Iterables.size(
-                                Registries.BLOCK.iterateEntries(ConventionalBlockTags.ORES)));
+        var ores = new HashMap<Block, HashSet<BlockPos>>(
+                Iterables.size(Registries.BLOCK.iterateEntries(ConventionalBlockTags.ORES)));
         var chunkPos = world.getChunk(blockPos).getPos();
-        var startPoint =
-                new BlockPos(chunkPos.getStartX(), blockPos.getY() - 1, chunkPos.getStartZ());
-        var endPoint =
-                new BlockPos(
-                        chunkPos.getEndX(),
-                        world.getChunk(blockPos).getBottomY(),
-                        chunkPos.getEndZ());
+        var startPoint = new BlockPos(chunkPos.getStartX(), blockPos.getY() - 1, chunkPos.getStartZ());
+        var endPoint = new BlockPos(chunkPos.getEndX(), world.getChunk(blockPos).getBottomY(), chunkPos.getEndZ());
         for (int x = startPoint.getX(); x <= endPoint.getX(); x++) {
             for (int y = startPoint.getY(); y >= endPoint.getY(); y--) {
                 for (int z = startPoint.getZ(); z <= endPoint.getZ(); z++) {

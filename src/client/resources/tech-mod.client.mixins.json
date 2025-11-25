@@ -3,7 +3,8 @@
   "package": "techmod.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "DrawContextMixin"
+    "DrawContextMixin",
+    "InventoryScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

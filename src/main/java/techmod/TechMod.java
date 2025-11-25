@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import techmod.registry.*;
 import techmod.util.ModLootTablesModifier;
+import techmod.world.gen.ModOreGeneration;
 
 public class TechMod implements ModInitializer {
     public static final String MOD_ID = "tech-mod";
@@ -25,5 +26,6 @@ public class TechMod implements ModInitializer {
         ModBlocks.init();
         ModBlockEntities.init();
         ModLootTablesModifier.init();
+        ModOreGeneration.generateOres();
     }
 }

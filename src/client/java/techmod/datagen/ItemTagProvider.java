@@ -44,5 +44,12 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
                         ModItems.MODULE_ENERGY_EFFICIENCY,
                         ModItems.MODULE_MAGNETISM,
                         ModItems.MODULE_SILK_TOUCH);
+        getOrCreateTagBuilder(ModTags.EFFICIENCY_MODULES)
+                .add(
+                        ModItems.MODULE_EFFICIENCY_1,
+                        ModItems.MODULE_EFFICIENCY_2,
+                        ModItems.MODULE_EFFICIENCY_3,
+                        ModItems.MODULE_EFFICIENCY_4,
+                        ModItems.MODULE_EFFICIENCY_5);
     }
 }

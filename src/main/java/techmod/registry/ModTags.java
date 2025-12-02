@@ -11,6 +11,7 @@ public class ModTags {
     public static final TagKey<Item> EMERALD_TOOL_MATERIALS = item("emerald_tool_materials");
     public static final TagKey<Item> DRILL_HEADS = item("drill_heads");
     public static final TagKey<Item> MODULES = item("modules");
+    public static final TagKey<Item> EFFICIENCY_MODULES = item("efficiency_modules");
 
     private static TagKey<Item> item(String id) {
         return TagKey.of(RegistryKeys.ITEM, TechMod.idOf(id));

@@ -4,19 +4,25 @@ import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.component.type.ToolComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import techmod.TechMod;
 import techmod.api.TechEnergyItem;
 import techmod.registry.ModComponents;
 import techmod.registry.ModItems;
@@ -118,6 +124,41 @@ public class DrillItem extends Item implements TechEnergyItem {
     public int getItemBarColor(ItemStack stack) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
         return drillHead.getItemBarColor();
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+        if (entity instanceof PlayerEntity player) {
+            var miningSpeed = player.getAttributeInstance(EntityAttributes.MINING_EFFICIENCY);
+            if (ItemStack.areEqual(player.getStackInHand(Hand.MAIN_HAND), stack)) {
+                var modules = getModules(stack);
+                var effModule = modules.filter((itemStack) -> itemStack.isIn(ModTags.EFFICIENCY_MODULES))
+                        .findFirst();
+                if (effModule.isPresent()) {
+                    var effModuleItem = effModule.get();
+                    double eff = 0;
+                    if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_1)) {
+                        eff = 2;
+                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_2)) {
+                        eff = 5;
+                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_3)) {
+                        eff = 10;
+                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_4)) {
+                        eff = 17;
+                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_5)) {
+                        eff = 37;
+                    }
+                    if (!miningSpeed.hasModifier(TechMod.idOf("efficiency_module"))) {
+                        miningSpeed.addTemporaryModifier(new EntityAttributeModifier(
+                                TechMod.idOf("efficiency_module"), eff, EntityAttributeModifier.Operation.ADD_VALUE));
+                    }
+                    return;
+                }
+            }
+            if (miningSpeed.hasModifier(TechMod.idOf("efficiency_module"))) {
+                miningSpeed.removeModifier(TechMod.idOf("efficiency_module"));
+            }
+        }
     }
 
     @Override

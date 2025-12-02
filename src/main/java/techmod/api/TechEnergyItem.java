@@ -16,6 +16,6 @@ public interface TechEnergyItem extends SimpleEnergyItem {
 
     default int getEnergyBarColor(ItemStack stack) {
         float a = 1f - (float) getStoredEnergy(stack) / getEnergyCapacity(stack) * 0.45f;
-        return MathHelper.hsvToRgb(a, 0.65F, 1.0F);
+        return MathHelper.hsvToRgb(Math.clamp(a, 0f, 1f), 0.65F, 1.0F);
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
@@ -39,9 +40,9 @@ public class DrillScreenHandler extends ScreenHandler {
             i++;
         }
 
-        this.addSlot(new Slot(inventory, 1, 8, 18));
-        this.addSlot(new Slot(inventory, 2, 26, 18));
-        this.addSlot(new Slot(inventory, 3, 44, 18));
+        this.addSlot(new ModuleSlot(inventory, 1, 8, 18));
+        this.addSlot(new ModuleSlot(inventory, 2, 26, 18));
+        this.addSlot(new ModuleSlot(inventory, 3, 44, 18));
         this.addSlot(new Slot(inventory, 0, 80, 18) {
             @Override
             public int getMaxItemCount() {
@@ -53,9 +54,9 @@ public class DrillScreenHandler extends ScreenHandler {
                 return stack.isIn(ModTags.DRILL_HEADS);
             }
         });
-        this.addSlot(new Slot(inventory, 4, 116, 18));
-        this.addSlot(new Slot(inventory, 5, 134, 18));
-        this.addSlot(new Slot(inventory, 6, 152, 18));
+        this.addSlot(new ModuleSlot(inventory, 4, 116, 18));
+        this.addSlot(new ModuleSlot(inventory, 5, 134, 18));
+        this.addSlot(new ModuleSlot(inventory, 6, 152, 18));
         inventory.addListener(sender -> {
             drill.set(
                     DataComponentTypes.CONTAINER,
@@ -127,6 +128,17 @@ public class DrillScreenHandler extends ScreenHandler {
                     return !getStack().isOf(ModItems.DRILL);
                 }
             });
+        }
+    }
+
+    public static class ModuleSlot extends Slot {
+        public ModuleSlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
+
+        @Override
+        public boolean canInsert(ItemStack stack) {
+            return stack.isIn(ModTags.MODULES);
         }
     }
 }

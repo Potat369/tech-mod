@@ -136,21 +136,11 @@ public class DrillItem extends Item implements TechEnergyItem {
                         .findFirst();
                 if (effModule.isPresent()) {
                     var effModuleItem = effModule.get();
-                    double eff = 0;
-                    if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_1)) {
-                        eff = 2;
-                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_2)) {
-                        eff = 5;
-                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_3)) {
-                        eff = 10;
-                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_4)) {
-                        eff = 17;
-                    } else if (effModuleItem.isOf(ModItems.MODULE_EFFICIENCY_5)) {
-                        eff = 37;
-                    }
                     if (!miningSpeed.hasModifier(TechMod.idOf("efficiency_module"))) {
                         miningSpeed.addTemporaryModifier(new EntityAttributeModifier(
-                                TechMod.idOf("efficiency_module"), eff, EntityAttributeModifier.Operation.ADD_VALUE));
+                                TechMod.idOf("efficiency_module"),
+                                Math.pow(effModuleItem.get(ModComponents.MODULE).level(), 2) + 1,
+                                EntityAttributeModifier.Operation.ADD_VALUE));
                     }
                     return;
                 }

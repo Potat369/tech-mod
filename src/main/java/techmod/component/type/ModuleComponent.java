@@ -7,10 +7,15 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 
-public record ModuleComponent(long energyConsumption) {
+public record ModuleComponent(long energyConsumption, int level) {
     public static final Codec<ModuleComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    PrimitiveCodec.LONG.fieldOf("energy_consumption").forGetter(ModuleComponent::energyConsumption))
+                    PrimitiveCodec.LONG.fieldOf("energy_consumption").forGetter(ModuleComponent::energyConsumption),
+                    PrimitiveCodec.INT.fieldOf("level").forGetter(ModuleComponent::level))
             .apply(instance, ModuleComponent::new));
-    public static final PacketCodec<ByteBuf, ModuleComponent> PACKET_CODEC =
-            PacketCodec.tuple(PacketCodecs.VAR_LONG, ModuleComponent::energyConsumption, ModuleComponent::new);
+    public static final PacketCodec<ByteBuf, ModuleComponent> PACKET_CODEC = PacketCodec.tuple(
+            PacketCodecs.VAR_LONG,
+            ModuleComponent::energyConsumption,
+            PacketCodecs.VAR_INT,
+            ModuleComponent::level,
+            ModuleComponent::new);
 }

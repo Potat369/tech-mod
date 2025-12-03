@@ -51,5 +51,7 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
                         ModItems.MODULE_EFFICIENCY_3,
                         ModItems.MODULE_EFFICIENCY_4,
                         ModItems.MODULE_EFFICIENCY_5);
+        getOrCreateTagBuilder(ModTags.FORTUNE_MODULES)
+                .add(ModItems.MODULE_FORTUNE_1, ModItems.MODULE_FORTUNE_2, ModItems.MODULE_FORTUNE_3);
     }
 }

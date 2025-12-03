@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -20,10 +21,25 @@ import techmod.screen.MelterScreenHandler;
 
 public class MelterEntity extends BlockEntity implements NamedScreenHandlerFactory, Inventory {
 
-    private int lavaAmmount = 0;
-    private static final int maxLava = 10000;
-
+    public static final int maxLava = 10000;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private int lavaAmmount = 0;
+    protected final PropertyDelegate p = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            return lavaAmmount;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            lavaAmmount = value;
+        }
+
+        @Override
+        public int size() {
+            return 1;
+        }
+    };
 
     public MelterEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MELTER, pos, state);
@@ -36,7 +52,7 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MelterScreenHandler(syncId, playerInventory, this);
+        return new MelterScreenHandler(syncId, playerInventory, this, p);
     }
 
     @Override

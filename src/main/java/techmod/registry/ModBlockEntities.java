@@ -7,6 +7,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import techmod.TechMod;
+import techmod.block.entity.MelterEntity;
 import techmod.block.entity.OreMinerBlockEntity;
 import techmod.block.entity.TeslaCoilBlockEntity;
 
@@ -19,6 +20,7 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
     }    public static final BlockEntityType<OreMinerBlockEntity> ORE_MINER =
             register("ore_miner", OreMinerBlockEntity::new, ModBlocks.ORE_MINER);
+    public static final BlockEntityType<MelterEntity> MELTER = register("melter", MelterEntity::new, ModBlocks.MELTER);
 
     public static void init() {}    public static final BlockEntityType<TeslaCoilBlockEntity> TESLA_COIL =
             register("tesla_coil", TeslaCoilBlockEntity::new, ModBlocks.TESLA_COIL);

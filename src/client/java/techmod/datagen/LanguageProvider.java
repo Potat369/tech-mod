@@ -47,5 +47,6 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.MODULE_HEIGHT, "Height Module");
         translationBuilder.add(ModItems.MODULE_WIDTH, "Width Module");
         translationBuilder.add(ModItems.MODULE_ENERGY_EFFICIENCY, "Energy Efficiency Module");
+        translationBuilder.add(ModBlocks.MELTER, "Melter");
     }
 }

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "tech-mod:block/melter_front",
+    "side": "tech-mod:block/melter_side",
+    "top": "tech-mod:block/melter_top"
+  }
+}

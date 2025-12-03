@@ -58,8 +58,9 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
         float lastFullness = (float) initialLavaAmount / MelterEntity.maxLava;
         float newFullness = (float) handler.getLavaAmount() / MelterEntity.maxLava;
         int height = MathHelper.lerp(
-                (float) (1 - Math.pow(1 - animationProgress, 4)), (int) (TANK_HEIGHT * (1.0f - lastFullness)), (int)
-                        (TANK_HEIGHT * (1.0f - newFullness)));
+                (float) (Math.sin((animationProgress * Math.PI) / 2)),
+                (int) (TANK_HEIGHT * (1.0f - lastFullness)),
+                (int) (TANK_HEIGHT * (1.0f - newFullness)));
         context.drawTexture(
                 RenderLayer::getGuiTextured,
                 LAVA_TEXTURE,
@@ -72,7 +73,7 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
                 16,
                 320);
         if (animationProgress < 1.0f) {
-            animationProgress = Math.clamp(animationProgress + 0.04f * deltaTicks, 0.0f, 1.0f);
+            animationProgress = Math.clamp(animationProgress + 0.05f * deltaTicks, 0.0f, 1.0f);
         }
         drawMouseoverTooltip(context, mouseX, mouseY);
     }

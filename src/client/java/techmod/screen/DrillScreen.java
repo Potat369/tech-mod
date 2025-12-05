@@ -28,7 +28,7 @@ public class DrillScreen extends HandledScreen<DrillScreenHandler> {
                 RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, backgroundWidth, backgroundHeight, 256, 256);
         var drill = MinecraftClient.getInstance().player.getMainHandStack();
         if (drill.getItem() instanceof TechEnergyItem energyItem) {
-            var fill = (float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill);
+            var fill = Math.min((float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill), 1.0f);
             context.fill(
                     i + 98,
                     j + 34,

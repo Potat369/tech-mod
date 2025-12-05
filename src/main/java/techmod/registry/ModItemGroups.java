@@ -1,11 +1,13 @@
 package techmod.registry;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import team.reborn.energy.api.EnergyStorage;
 import techmod.TechMod;
@@ -14,13 +16,6 @@ import techmod.item.DrillItem;
 public class ModItemGroups {
     public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP =
             RegistryKey.of(Registries.ITEM_GROUP.getKey(), TechMod.idOf("item_group"));
-
-    private static final ItemStack DRILL_WITH_ENERGY = ModItems.DRILL.getDefaultStack();
-
-    static {
-        DRILL_WITH_ENERGY.set(
-                EnergyStorage.ENERGY_COMPONENT, ((DrillItem) ModItems.DRILL).getEnergyCapacity(DRILL_WITH_ENERGY));
-    }
 
     public static void init() {
         Registry.register(

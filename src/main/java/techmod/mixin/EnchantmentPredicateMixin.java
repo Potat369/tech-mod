@@ -37,10 +37,7 @@ public class EnchantmentPredicateMixin implements ItemStackHolder {
                 && enchantment.matchesKey(Enchantments.SILK_TOUCH)
                 && getItemStack() != null
                 && getItemStack().getItem() instanceof DrillItem) {
-            var silkTouchModule = DrillItem.getModules(getItemStack())
-                    .filter(module -> module.isOf(ModItems.MODULE_SILK_TOUCH))
-                    .findFirst();
-            if (silkTouchModule.isPresent()) {
+            if (DrillItem.hasModule(getItemStack(), ModItems.MODULE_SILK_TOUCH)) {
                 return 1;
             }
         }

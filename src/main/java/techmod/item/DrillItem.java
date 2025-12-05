@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -30,18 +31,88 @@ import techmod.registry.ModTags;
 import techmod.screen.DrillScreenHandler;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Stream;
 
 public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
         super(settings.maxCount(1).component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT));
     }
 
-    public static Stream<ItemStack> getModules(ItemStack drill) {
-        var containerComponent = drill.get(DataComponentTypes.CONTAINER);
-        if (containerComponent == null) return Stream.empty();
-        return containerComponent.streamNonEmpty().filter(stack -> stack.isIn(ModTags.MODULES));
+    public static Optional<ItemStack> getModule(ItemStack stack, TagKey<Item> tag) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isIn(tag)) {
+                    return Optional.of(itemStack);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<ItemStack> getModule(ItemStack stack, Item item) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isOf(item)) {
+                    return Optional.of(itemStack);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static boolean hasModule(ItemStack stack, TagKey<Item> tag) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isIn(tag)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasModule(ItemStack stack, Item item) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isOf(item)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int moduleCount(ItemStack stack, TagKey<Item> tag) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            int count = 0;
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isIn(tag)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+        return 0;
+    }
+
+    public static int moduleCount(ItemStack stack, Item item) {
+        var component = stack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            int count = 0;
+            for (ItemStack itemStack : component.iterateNonEmpty()) {
+                if (itemStack.isOf(item)) {
+                    count++;
+                }
+            }
+            return count;
+        }
+        return 0;
     }
 
     @Override
@@ -131,9 +202,7 @@ public class DrillItem extends Item implements TechEnergyItem {
         if (entity instanceof PlayerEntity player) {
             var miningSpeed = player.getAttributeInstance(EntityAttributes.MINING_EFFICIENCY);
             if (ItemStack.areEqual(player.getStackInHand(Hand.MAIN_HAND), stack)) {
-                var modules = getModules(stack);
-                var effModule = modules.filter((itemStack) -> itemStack.isIn(ModTags.EFFICIENCY_MODULES))
-                        .findFirst();
+                var effModule = DrillItem.getModule(stack, ModTags.EFFICIENCY_MODULES);
                 if (effModule.isPresent()) {
                     var effModuleItem = effModule.get();
                     if (!miningSpeed.hasModifier(TechMod.idOf("efficiency_module"))) {
@@ -163,11 +232,15 @@ public class DrillItem extends Item implements TechEnergyItem {
 
     @Override
     public long getEnergyMaxOutput(ItemStack itemStack) {
-        var modules = getModules(itemStack);
         var additionalEnergy = new AtomicLong();
-        modules.forEach(module -> {
-            additionalEnergy.addAndGet(module.get(ModComponents.MODULE).energyConsumption());
-        });
+        var component = itemStack.get(DataComponentTypes.CONTAINER);
+        if (component != null) {
+            for (ItemStack stack : component.iterateNonEmpty()) {
+                if (stack.contains(ModComponents.MODULE)) {
+                    additionalEnergy.addAndGet(stack.get(ModComponents.MODULE).energyConsumption());
+                }
+            }
+        }
         return 40 + additionalEnergy.get();
     }
 }

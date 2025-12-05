@@ -15,9 +15,7 @@ public class ApplyBonusLootFunctionMixin {
     @ModifyVariable(method = "process", at = @At("STORE"), ordinal = 0)
     int b(int value, @Local(ordinal = 1) ItemStack stack) {
         if (value == 0 && stack.getItem() instanceof DrillItem) {
-            var module = DrillItem.getModules(stack)
-                    .filter(s -> s.isIn(ModTags.FORTUNE_MODULES))
-                    .findFirst();
+            var module = DrillItem.getModule(stack, ModTags.FORTUNE_MODULES);
             if (module.isPresent()) {
                 return module.get().get(ModComponents.MODULE).level();
             }

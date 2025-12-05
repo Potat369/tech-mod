@@ -31,7 +31,15 @@ public class ModItemGroups {
                         .icon(() -> new ItemStack(ModItems.COPPER_DRILL_HEAD))
                         .entries(((displayContext, entries) -> {
                             entries.add(ModItems.DRILL);
-                            entries.add(DRILL_WITH_ENERGY);
+                            entries.add(new ItemStack(
+                                    RegistryEntry.of(ModItems.DRILL),
+                                    1,
+                                    ComponentChanges.builder()
+                                            .add(
+                                                    EnergyStorage.ENERGY_COMPONENT,
+                                                    ((DrillItem) ModItems.DRILL)
+                                                            .getEnergyCapacity(ModItems.DRILL.getDefaultStack()))
+                                            .build()));
                             entries.add(ModItems.COPPER_DRILL_HEAD);
                             entries.add(ModItems.IRON_DRILL_HEAD);
                             entries.add(ModItems.GOLDEN_DRILL_HEAD);

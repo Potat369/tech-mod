@@ -40,9 +40,9 @@ public class DrillScreenHandler extends ScreenHandler {
             i++;
         }
 
-        this.addSlot(new ModuleSlot(inventory, 1, 8, 18));
-        this.addSlot(new ModuleSlot(inventory, 2, 26, 18));
-        this.addSlot(new ModuleSlot(inventory, 3, 44, 18));
+        this.addSlot(new ModuleSlot(inventory, 1, 8, 18, drill));
+        this.addSlot(new ModuleSlot(inventory, 2, 26, 18, drill));
+        this.addSlot(new ModuleSlot(inventory, 3, 44, 18, drill));
         this.addSlot(new Slot(inventory, 0, 80, 18) {
             @Override
             public int getMaxItemCount() {
@@ -54,9 +54,9 @@ public class DrillScreenHandler extends ScreenHandler {
                 return stack.isIn(ModTags.DRILL_HEADS);
             }
         });
-        this.addSlot(new ModuleSlot(inventory, 4, 116, 18));
-        this.addSlot(new ModuleSlot(inventory, 5, 134, 18));
-        this.addSlot(new ModuleSlot(inventory, 6, 152, 18));
+        this.addSlot(new ModuleSlot(inventory, 4, 116, 18, drill));
+        this.addSlot(new ModuleSlot(inventory, 5, 134, 18, drill));
+        this.addSlot(new ModuleSlot(inventory, 6, 152, 18, drill));
         inventory.addListener(sender -> {
             drill.set(
                     DataComponentTypes.CONTAINER,
@@ -132,12 +132,21 @@ public class DrillScreenHandler extends ScreenHandler {
     }
 
     public static class ModuleSlot extends Slot {
-        public ModuleSlot(Inventory inventory, int index, int x, int y) {
+        private final ItemStack drill;
+
+        public ModuleSlot(Inventory inventory, int index, int x, int y, ItemStack drill) {
             super(inventory, index, x, y);
+            this.drill = drill;
         }
 
         @Override
         public boolean canInsert(ItemStack stack) {
+            if (stack.isIn(ModTags.FORTUNE_MODULES) && DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH)) {
+                return false;
+            }
+            if (stack.isOf(ModItems.MODULE_SILK_TOUCH) && DrillItem.hasModule(drill, ModTags.FORTUNE_MODULES)) {
+                return false;
+            }
             return stack.isIn(ModTags.MODULES);
         }
     }

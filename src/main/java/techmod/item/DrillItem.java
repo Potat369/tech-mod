@@ -1,7 +1,7 @@
 package techmod.item;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import net.minecraft.block.BlockState;
-import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.component.type.ToolComponent;
@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -34,7 +33,6 @@ import techmod.screen.DrillScreenHandler;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class DrillItem extends Item implements TechEnergyItem {
     public DrillItem(Settings settings) {
@@ -234,15 +232,16 @@ public class DrillItem extends Item implements TechEnergyItem {
 
     @Override
     public long getEnergyMaxOutput(ItemStack itemStack) {
-        var additionalEnergy = new AtomicLong();
+        var additionalEnergy = new AtomicDouble(40);
         var component = itemStack.get(DataComponentTypes.CONTAINER);
         if (component != null) {
             for (ItemStack stack : component.iterateNonEmpty()) {
                 if (stack.contains(ModComponents.MODULE)) {
-                    additionalEnergy.addAndGet(stack.get(ModComponents.MODULE).energyConsumption());
+                    additionalEnergy.set(additionalEnergy.get()
+                            * stack.get(ModComponents.MODULE).energyMultiplier());
                 }
             }
         }
-        return 40 + additionalEnergy.get();
+        return (long) additionalEnergy.get();
     }
 }

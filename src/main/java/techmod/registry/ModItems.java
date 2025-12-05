@@ -25,33 +25,33 @@ public class ModItems {
     public static final Item EMERALD_DRILL_HEAD = ofDrillHead("emerald", ModToolMaterials.EMERALD);
     public static final Item NETHERITE_DRILL_HEAD = ofDrillHead("netherite", ToolMaterial.NETHERITE);
     public static final Item DRILL = ofItem("drill", DrillItem::new, new Item.Settings());
-    public static final Item MODULE_DEPTH = ofModule("depth", 10, 1);
-    public static final Item MODULE_WIDTH = ofModule("width", 10, 1);
-    public static final Item MODULE_HEIGHT = ofModule("height", 10, 1);
-    public static final Item MODULE_EFFICIENCY_1 = ofModule("efficiency_1", 5, 1);
-    public static final Item MODULE_EFFICIENCY_2 = ofModule("efficiency_2", 10, 2);
-    public static final Item MODULE_EFFICIENCY_3 = ofModule("efficiency_3", 15, 3);
-    public static final Item MODULE_EFFICIENCY_4 = ofModule("efficiency_4", 20, 4);
-    public static final Item MODULE_EFFICIENCY_5 = ofModule("efficiency_5", 10, 5);
-    public static final Item MODULE_FORTUNE_1 = ofModule("fortune_1", 5, 1);
-    public static final Item MODULE_FORTUNE_2 = ofModule("fortune_2", 10, 2);
-    public static final Item MODULE_FORTUNE_3 = ofModule("fortune_3", 15, 3);
-    public static final Item MODULE_ENERGY_EFFICIENCY = ofModule("energy_efficiency", -20, 1);
-    public static final Item MODULE_MAGNETISM = ofModule("magnetism", 5, 1);
-    public static final Item MODULE_SILK_TOUCH = ofModule("silk_touch", 5, 1);
+    public static final Item MODULE_DEPTH = ofModule("depth", 1.1f, 1);
+    public static final Item MODULE_WIDTH = ofModule("width", 1.1f, 1);
+    public static final Item MODULE_HEIGHT = ofModule("height", 1.1f, 1);
+    public static final Item MODULE_EFFICIENCY_1 = ofModule("efficiency_1", 1.05f, 1);
+    public static final Item MODULE_EFFICIENCY_2 = ofModule("efficiency_2", 1.10f, 2);
+    public static final Item MODULE_EFFICIENCY_3 = ofModule("efficiency_3", 1.15f, 3);
+    public static final Item MODULE_EFFICIENCY_4 = ofModule("efficiency_4", 1.20f, 4);
+    public static final Item MODULE_EFFICIENCY_5 = ofModule("efficiency_5", 1.25f, 5);
+    public static final Item MODULE_FORTUNE_1 = ofModule("fortune_1", 1.10f, 1);
+    public static final Item MODULE_FORTUNE_2 = ofModule("fortune_2",  1.15f, 2);
+    public static final Item MODULE_FORTUNE_3 = ofModule("fortune_3", 1.30f, 3);
+    public static final Item MODULE_ENERGY_EFFICIENCY = ofModule("energy_efficiency", 0.75f, 1);
+    public static final Item MODULE_MAGNETISM = ofModule("magnetism", 1.05f, 1);
+    public static final Item MODULE_SILK_TOUCH = ofModule("silk_touch", 1.05f, 1);
 
     private static Item ofItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, TechMod.idOf(name));
         return Items.register(itemKey, factory, settings);
     }
 
-    private static Item ofModule(String name, long energyConsumption, int level) {
+    private static Item ofModule(String name, float energyMultiplier, int level) {
         return ofItem(
                 "module_" + name,
                 Item::new,
                 new Item.Settings()
                         .maxCount(1)
-                        .component(ModComponents.MODULE, new ModuleComponent(energyConsumption, level)));
+                        .component(ModComponents.MODULE, new ModuleComponent(energyMultiplier, level)));
     }
 
     private static Item ofDrillHead(String material, ToolMaterial toolMaterial) {

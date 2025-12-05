@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "tech-mod:block/melter",
+      "y": 90
+    },
+    "facing=north": {
       "model": "tech-mod:block/melter"
+    },
+    "facing=south": {
+      "model": "tech-mod:block/melter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tech-mod:block/melter",
+      "y": 270
     }
   }
 }

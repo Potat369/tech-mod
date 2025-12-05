@@ -21,7 +21,7 @@ public class ModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSingleton(ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
-        blockStateModelGenerator.registerSingleton(ModBlocks.MELTER, TexturedModel.ORIENTABLE);
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotated(ModBlocks.MELTER, TexturedModel.ORIENTABLE);
     }
 
     @Override

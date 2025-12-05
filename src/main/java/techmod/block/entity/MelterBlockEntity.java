@@ -19,20 +19,19 @@ import org.jetbrains.annotations.Nullable;
 import techmod.registry.ModBlockEntities;
 import techmod.screen.MelterScreenHandler;
 
-public class MelterEntity extends BlockEntity implements NamedScreenHandlerFactory, Inventory {
-
-    public static final int maxLava = 10000;
+public class MelterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, Inventory {
+    public static final int LAVA_CAPACITY = 10000;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
-    private int lavaAmmount = 0;
+    private int lavaAmount = 0;
     protected final PropertyDelegate p = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            return lavaAmmount;
+            return lavaAmount;
         }
 
         @Override
         public void set(int index, int value) {
-            lavaAmmount = value;
+            lavaAmount = value;
         }
 
         @Override
@@ -41,7 +40,7 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
         }
     };
 
-    public MelterEntity(BlockPos pos, BlockState state) {
+    public MelterBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MELTER, pos, state);
     }
 
@@ -77,7 +76,7 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
     public ItemStack removeStack(int slot, int amount) {
         ItemStack result = Inventories.splitStack(items, slot, amount);
 
-        if(!result.isEmpty()){
+        if (!result.isEmpty()) {
             items.set(slot, ItemStack.EMPTY);
             markDirty();
         }
@@ -97,7 +96,7 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
     @Override
     public void setStack(int slot, ItemStack stack) {
         items.set(slot, stack);
-        if(stack.getCount() > getMaxCountPerStack()){
+        if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
         }
         markDirty();
@@ -105,8 +104,8 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        if(world == null) return false;
-        if(world.getBlockEntity(pos) != this) return false;
+        if (world == null) return false;
+        if (world.getBlockEntity(pos) != this) return false;
         return player.squaredDistanceTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64;
     }
 
@@ -120,34 +119,35 @@ public class MelterEntity extends BlockEntity implements NamedScreenHandlerFacto
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
         Inventories.writeNbt(nbt, this.items, registries);
-        nbt.putInt("Lava", lavaAmmount);
+        nbt.putInt("Lava", lavaAmount);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
         Inventories.readNbt(nbt, this.items, registries);
-        lavaAmmount = nbt.getInt("Lava", lavaAmmount);
+        lavaAmount = nbt.getInt("Lava", lavaAmount);
     }
 
-    public int getLavaAmmount() {
-        return lavaAmmount;
+    public int getLavaAmount() {
+        return lavaAmount;
     }
+
     public int getMaxLavaAmmount() {
-        return maxLava;
+        return LAVA_CAPACITY;
     }
+
     public void addLava(int ammount) {
-        lavaAmmount = Math.min(maxLava, lavaAmmount + ammount);
+        lavaAmount = Math.min(LAVA_CAPACITY, lavaAmount + ammount);
         markDirty();
     }
+
     public boolean removeLava(int ammount) {
-        if(lavaAmmount >= ammount) {
-            lavaAmmount -= ammount;
+        if (lavaAmount >= ammount) {
+            lavaAmount -= ammount;
             markDirty();
             return true;
         }
         return false;
     }
-
-
 }

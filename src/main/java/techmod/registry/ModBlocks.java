@@ -7,7 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import techmod.TechMod;
-import techmod.block.Melter;
+import techmod.block.MelterBlock;
 import techmod.block.OreMinerBlock;
 import techmod.block.OreScannerBlock;
 import techmod.block.TeslaCoilBlock;
@@ -16,14 +16,15 @@ import java.util.function.Function;
 
 public class ModBlocks {
     public static final Block ORE_MINER =
-            registerBlock("ore_miner", OreMinerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
+            of("ore_miner", OreMinerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
     public static final Block TESLA_COIL =
-            registerBlock("tesla_coil", TeslaCoilBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
+            of("tesla_coil", TeslaCoilBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
     public static final Block ORE_SCANNER =
-            registerBlock("ore_scanner", OreScannerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
-    public static final Block MELTER = registerBlock("melter", Melter::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
+            of("ore_scanner", OreScannerBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
+    public static final Block MELTER =
+            of("melter", MelterBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK));
 
-    private static Block registerBlock(
+    private static Block of(
             String name, Function<Block.Settings, Block> factory, AbstractBlock.Settings settings) {
         final RegistryKey<Block> itemKey = RegistryKey.of(RegistryKeys.BLOCK, TechMod.idOf(name));
         Block block = Blocks.register(itemKey, factory, settings);

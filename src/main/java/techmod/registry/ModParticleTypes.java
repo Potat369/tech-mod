@@ -8,9 +8,9 @@ import net.minecraft.registry.Registry;
 import techmod.TechMod;
 
 public class ModParticleTypes {
-    public static final SimpleParticleType ENERGY_SPARKLE = register("energy_sparkle", FabricParticleTypes.simple());
+    public static final SimpleParticleType ENERGY_SPARKLE = of("energy_sparkle", FabricParticleTypes.simple());
 
-    private static <T extends ParticleType<?>> T register(String id, T particle) {
+    private static <T extends ParticleType<?>> T of(String id, T particle) {
         Registry.register(Registries.PARTICLE_TYPE, TechMod.idOf(id), particle);
         return particle;
     }

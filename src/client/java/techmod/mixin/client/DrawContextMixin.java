@@ -12,7 +12,6 @@ import techmod.api.TechEnergyItem;
 
 @Mixin(DrawContext.class)
 public class DrawContextMixin {
-
     @Inject(method = "drawItemBar", at = @At("HEAD"))
     public void drawEnergyBar(ItemStack stack, int x, int y, CallbackInfo ci) {
         if (stack.getItem() instanceof TechEnergyItem energyItem && energyItem.isEnergyBarVisible(stack)) {

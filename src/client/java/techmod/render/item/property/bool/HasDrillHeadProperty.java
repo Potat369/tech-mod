@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import techmod.registry.ModTags;
+import techmod.registry.ModItemTags;
 
 public record HasDrillHeadProperty() implements BooleanProperty {
     public static final MapCodec<HasDrillHeadProperty> CODEC = MapCodec.unit(new HasDrillHeadProperty());
@@ -25,6 +25,6 @@ public record HasDrillHeadProperty() implements BooleanProperty {
             @Nullable LivingEntity entity,
             int seed,
             ItemDisplayContext displayContext) {
-        return stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isIn(ModTags.DRILL_HEADS);
+        return stack.get(DataComponentTypes.CONTAINER).copyFirstStack().isIn(ModItemTags.DRILL_HEADS);
     }
 }

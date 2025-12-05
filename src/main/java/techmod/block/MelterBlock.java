@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -21,21 +20,21 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import techmod.block.entity.MelterEntity;
+import techmod.block.entity.MelterBlockEntity;
 
-public class Melter extends BlockWithEntity {
-    public Melter(Settings settings) {
+public class MelterBlock extends BlockWithEntity {
+    public MelterBlock(Settings settings) {
         super(settings);
     }
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return createCodec(Melter::new);
+        return createCodec(MelterBlock::new);
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new MelterEntity(pos,state);
+        return new MelterBlockEntity(pos, state);
     }
 
     @Override
@@ -44,15 +43,22 @@ public class Melter extends BlockWithEntity {
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(
+            ItemStack stack,
+            BlockState state,
+            World world,
+            BlockPos pos,
+            PlayerEntity player,
+            Hand hand,
+            BlockHitResult hit) {
         BlockEntity be = world.getBlockEntity(pos);
 
-        if (!(be instanceof MelterEntity melter)) {
+        if (!(be instanceof MelterBlockEntity melter)) {
             return ActionResult.PASS;
         }
         if (stack.isOf(Items.LAVA_BUCKET)) {
 
-            if (melter.getLavaAmmount() <= melter.getMaxLavaAmmount() - 1000) {
+            if (melter.getLavaAmount() <= melter.getMaxLavaAmmount() - 1000) {
 
                 melter.addLava(1000);
                 melter.markDirty();
@@ -61,16 +67,12 @@ public class Melter extends BlockWithEntity {
                     player.setStackInHand(hand, new ItemStack(Items.BUCKET));
                 }
 
-                world.playSound(null, pos,
-                        SoundEvents.ITEM_BUCKET_EMPTY_LAVA,
-                        SoundCategory.BLOCKS,
-                        1f, 1f);
+                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1f, 1f);
 
                 return ActionResult.SUCCESS;
             }
             return ActionResult.FAIL;
-        }
-        else if (stack.isEmpty()){
+        } else if (stack.isEmpty()) {
             NamedScreenHandlerFactory factory = state.createScreenHandlerFactory(world, pos);
             if (factory != null) {
                 player.openHandledScreen(factory);
@@ -78,8 +80,6 @@ public class Melter extends BlockWithEntity {
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
-
-
     }
 
     @Override
@@ -87,8 +87,8 @@ public class Melter extends BlockWithEntity {
         BlockState newState = world.getBlockState(pos);
         if (!state.isOf(newState.getBlock())) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof MelterEntity melterEntity) {
-                ItemScatterer.spawn((World) world, pos, (Inventory) melterEntity);
+            if (blockEntity instanceof MelterBlockEntity melterEntity) {
+                ItemScatterer.spawn(world, pos, melterEntity);
                 world.updateComparators(pos, this);
             }
             super.onStateReplaced(state, world, pos, moved);

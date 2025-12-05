@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import techmod.TechMod;
-import techmod.block.entity.MelterEntity;
+import techmod.block.entity.MelterBlockEntity;
 
 import java.util.function.Function;
 
@@ -55,8 +55,8 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
             initialLavaAmount = lastLavaAmount;
             lastLavaAmount = lavaAmount;
         }
-        float lastFullness = (float) initialLavaAmount / MelterEntity.maxLava;
-        float newFullness = (float) handler.getLavaAmount() / MelterEntity.maxLava;
+        float lastFullness = (float) initialLavaAmount / MelterBlockEntity.LAVA_CAPACITY;
+        float newFullness = (float) handler.getLavaAmount() / MelterBlockEntity.LAVA_CAPACITY;
         int height = MathHelper.lerp(
                 (float) (Math.sin((animationProgress * Math.PI) / 2)),
                 (int) (TANK_HEIGHT * (1.0f - lastFullness)),

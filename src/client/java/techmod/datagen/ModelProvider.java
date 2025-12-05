@@ -14,7 +14,6 @@ import techmod.render.item.property.bool.HasDrillHeadProperty;
 import java.util.Optional;
 
 public class ModelProvider extends FabricModelProvider {
-
     public ModelProvider(FabricDataOutput output) {
         super(output);
     }

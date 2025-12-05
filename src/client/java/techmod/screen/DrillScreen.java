@@ -12,7 +12,6 @@ import techmod.TechMod;
 import techmod.api.TechEnergyItem;
 
 public class DrillScreen extends HandledScreen<DrillScreenHandler> {
-
     private static final Identifier TEXTURE = TechMod.idOf("textures/gui/container/drill.png");
 
     public DrillScreen(DrillScreenHandler handler, PlayerInventory inventory, Text title) {

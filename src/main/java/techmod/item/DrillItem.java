@@ -26,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
 import techmod.TechMod;
 import techmod.api.TechEnergyItem;
 import techmod.registry.ModComponents;
+import techmod.registry.ModItemTags;
 import techmod.registry.ModItems;
-import techmod.registry.ModTags;
 import techmod.screen.DrillScreenHandler;
 
 import java.util.List;
@@ -159,14 +159,14 @@ public class DrillItem extends Item implements TechEnergyItem {
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         var drillHead = stack.get(DataComponentTypes.CONTAINER).stream()
-                .filter(itemStack -> itemStack.isIn(ModTags.DRILL_HEADS))
+                .filter(itemStack -> itemStack.isIn(ModItemTags.DRILL_HEADS))
                 .findFirst();
         if (drillHead.isPresent()) {
             drillHead.get().damage(1, miner, EquipmentSlot.MAINHAND);
             var items = new java.util.ArrayList<>(
                     stack.get(DataComponentTypes.CONTAINER).stream().toList());
             for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).isIn(ModTags.DRILL_HEADS)) {
+                if (items.get(i).isIn(ModItemTags.DRILL_HEADS)) {
                     items.set(i, drillHead.get());
                 }
             }
@@ -202,7 +202,7 @@ public class DrillItem extends Item implements TechEnergyItem {
         if (entity instanceof PlayerEntity player) {
             var miningSpeed = player.getAttributeInstance(EntityAttributes.MINING_EFFICIENCY);
             if (ItemStack.areEqual(player.getStackInHand(Hand.MAIN_HAND), stack)) {
-                var effModule = DrillItem.getModule(stack, ModTags.EFFICIENCY_MODULES);
+                var effModule = DrillItem.getModule(stack, ModItemTags.EFFICIENCY_MODULES);
                 if (effModule.isPresent()) {
                     var effModuleItem = effModule.get();
                     if (!miningSpeed.hasModifier(TechMod.idOf("efficiency_module"))) {

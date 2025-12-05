@@ -11,7 +11,7 @@ import team.reborn.energy.api.EnergyStorage;
 import techmod.TechMod;
 import techmod.item.DrillItem;
 
-public class ModItemsGroups {
+public class ModItemGroups {
     public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP =
             RegistryKey.of(Registries.ITEM_GROUP.getKey(), TechMod.idOf("item_group"));
 

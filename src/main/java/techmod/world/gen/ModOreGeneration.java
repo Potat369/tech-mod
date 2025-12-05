@@ -6,7 +6,7 @@ import net.minecraft.world.gen.GenerationStep;
 import techmod.world.ModPlacedFeatures;
 
 public class ModOreGeneration {
-    public static void generateOres() {
+    public static void init() {
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),
                 GenerationStep.Feature.UNDERGROUND_ORES,

@@ -11,14 +11,13 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import org.apache.commons.compress.utils.Lists;
 import techmod.item.DrillItem;
+import techmod.registry.ModItemTags;
 import techmod.registry.ModItems;
 import techmod.registry.ModScreenHandlers;
-import techmod.registry.ModTags;
 
 import java.util.Iterator;
 
 public class DrillScreenHandler extends ScreenHandler {
-
     private final SimpleInventory inventory;
     private final ItemStack drill;
 
@@ -51,7 +50,7 @@ public class DrillScreenHandler extends ScreenHandler {
 
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isIn(ModTags.DRILL_HEADS);
+                return stack.isIn(ModItemTags.DRILL_HEADS);
             }
         });
         this.addSlot(new ModuleSlot(inventory, 4, 116, 18, drill));
@@ -141,13 +140,13 @@ public class DrillScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            if (stack.isIn(ModTags.FORTUNE_MODULES) && DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH)) {
+            if (stack.isIn(ModItemTags.FORTUNE_MODULES) && DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH)) {
                 return false;
             }
-            if (stack.isOf(ModItems.MODULE_SILK_TOUCH) && DrillItem.hasModule(drill, ModTags.FORTUNE_MODULES)) {
+            if (stack.isOf(ModItems.MODULE_SILK_TOUCH) && DrillItem.hasModule(drill, ModItemTags.FORTUNE_MODULES)) {
                 return false;
             }
-            return stack.isIn(ModTags.MODULES);
+            return stack.isIn(ModItemTags.MODULES);
         }
     }
 }

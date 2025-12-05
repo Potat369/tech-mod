@@ -8,20 +8,20 @@ import techmod.component.type.DrillHeadComponent;
 import techmod.component.type.ModuleComponent;
 
 public class ModComponents {
-    public static final ComponentType<DrillHeadComponent> DRILL_HEAD = register(
+    public static final ComponentType<DrillHeadComponent> DRILL_HEAD = of(
             "drill_head",
             ComponentType.<DrillHeadComponent>builder()
                     .codec(DrillHeadComponent.CODEC)
                     .packetCodec(DrillHeadComponent.PACKET_CODEC)
                     .build());
-    public static final ComponentType<ModuleComponent> MODULE = register(
+    public static final ComponentType<ModuleComponent> MODULE = of(
             "module",
             ComponentType.<ModuleComponent>builder()
                     .codec(ModuleComponent.CODEC)
                     .packetCodec(ModuleComponent.PACKET_CODEC)
                     .build());
 
-    private static <T> ComponentType<T> register(String name, ComponentType<T> type) {
+    private static <T> ComponentType<T> of(String name, ComponentType<T> type) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, TechMod.idOf(name), type);
     }
 

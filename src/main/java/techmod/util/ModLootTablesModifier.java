@@ -11,7 +11,6 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import techmod.registry.ModItems;
 
 public class ModLootTablesModifier {
-
     public static void init() {
         LootTableEvents.MODIFY.register(((key, tableBuilder, source, registries) -> {
             if (key.equals(LootTables.ABANDONED_MINESHAFT_CHEST)) {

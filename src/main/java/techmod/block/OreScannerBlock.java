@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import techmod.block.entity.OreMinerBlockEntity;
 
 public class OreScannerBlock extends Block {
-
     public OreScannerBlock(Settings settings) {
         super(settings);
     }

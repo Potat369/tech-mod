@@ -19,13 +19,13 @@ public class TechMod implements ModInitializer {
     @Override
     public void onInitialize() {
         ModItems.init();
-        ModItemsGroups.init();
+        ModItemGroups.init();
         ModScreenHandlers.init();
         ModComponents.init();
         ModParticleTypes.init();
         ModBlocks.init();
         ModBlockEntities.init();
         ModLootTablesModifier.init();
-        ModOreGeneration.generateOres();
+        ModOreGeneration.init();
     }
 }

@@ -30,6 +30,9 @@ public class LanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModTags.DRILL_HEADS, "Drill Heads");
         translationBuilder.add(ModTags.COPPER_TOOL_MATERIALS, "Copper Tool Materials");
         translationBuilder.add(ModTags.EMERALD_TOOL_MATERIALS, "Emerald Tool Materials");
+        translationBuilder.add(ModTags.MODULES, "Drill Modules");
+        translationBuilder.add(ModTags.EFFICIENCY_MODULES, "Efficiency Modules");
+        translationBuilder.add(ModTags.FORTUNE_MODULES, "Fortune Modules");
         translationBuilder.add(ModBlocks.ORE_MINER, "Ore Miner");
         translationBuilder.add(ModBlocks.ORE_SCANNER, "Ore Scanner");
         translationBuilder.add(ModBlocks.TESLA_COIL, "Tesla Coil");

@@ -1,4 +1,5 @@
 {
+  "block.tech-mod.melter": "Melter",
   "block.tech-mod.ore_miner": "Ore Miner",
   "block.tech-mod.ore_scanner": "Ore Scanner",
   "block.tech-mod.tesla_coil": "Tesla Coil",
@@ -26,5 +27,8 @@
   "itemGroup.tech_mod.tech_mod_item_group": "Tech Mod Item Group",
   "tag.item.tech-mod.copper_tool_materials": "Copper Tool Materials",
   "tag.item.tech-mod.drill_heads": "Drill Heads",
-  "tag.item.tech-mod.emerald_tool_materials": "Emerald Tool Materials"
+  "tag.item.tech-mod.efficiency_modules": "Efficiency Modules",
+  "tag.item.tech-mod.emerald_tool_materials": "Emerald Tool Materials",
+  "tag.item.tech-mod.fortune_modules": "Fortune Modules",
+  "tag.item.tech-mod.modules": "Drill Modules"
 }

@@ -6,7 +6,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.registry.entry.RegistryEntry;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +15,6 @@ import techmod.registry.ModItems;
 import techmod.util.ItemStackHolder;
 
 @Mixin(EnchantmentPredicate.class)
-@Debug(export = true)
 public class EnchantmentPredicateMixin implements ItemStackHolder {
     @Unique
     private ItemStack stack;
@@ -32,7 +30,7 @@ public class EnchantmentPredicateMixin implements ItemStackHolder {
     }
 
     @ModifyVariable(method = "testLevel", at = @At("STORE"), ordinal = 0)
-    int level(int level, @Local(argsOnly = true) RegistryEntry<Enchantment> enchantment) {
+    int checkDrillForSilkTouchModule(int level, @Local(argsOnly = true) RegistryEntry<Enchantment> enchantment) {
         if (level == 0
                 && enchantment.matchesKey(Enchantments.SILK_TOUCH)
                 && getItemStack() != null

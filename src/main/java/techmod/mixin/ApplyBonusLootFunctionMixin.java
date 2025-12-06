@@ -13,7 +13,7 @@ import techmod.registry.ModItemTags;
 @Mixin(ApplyBonusLootFunction.class)
 public class ApplyBonusLootFunctionMixin {
     @ModifyVariable(method = "process", at = @At("STORE"), ordinal = 0)
-    int b(int value, @Local(ordinal = 1) ItemStack stack) {
+    int checkDrillForFortuneModuleLevel(int value, @Local(ordinal = 1) ItemStack stack) {
         if (value == 0 && stack.getItem() instanceof DrillItem) {
             var module = DrillItem.getModule(stack, ModItemTags.FORTUNE_MODULES);
             if (module.isPresent()) {

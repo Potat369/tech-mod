@@ -17,7 +17,7 @@ abstract class InventoryScreenMixin extends Screen {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    public void a(CallbackInfo ci) {
+    public void addShopButton(CallbackInfo ci) {
         this.addDrawableChild(new IconButton(1, 1, 16, 16, 14, 14, Text.of(""), TechMod.idOf("market")));
     }
 }

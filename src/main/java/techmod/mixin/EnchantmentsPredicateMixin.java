@@ -9,15 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.component.ComponentSubPredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.EnchantmentsPredicate;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import techmod.item.DrillItem;
 import techmod.util.ItemStackHolder;
 
 @Mixin(EnchantmentsPredicate.class)
-@Debug(export = true)
 public abstract class EnchantmentsPredicateMixin implements ComponentSubPredicate<ItemEnchantmentsComponent> {
+    @Unique
     private ItemStack itemStack;
 
     @Override
@@ -35,7 +35,7 @@ public abstract class EnchantmentsPredicateMixin implements ComponentSubPredicat
                             value = "INVOKE",
                             target =
                                     "Lnet/minecraft/predicate/item/EnchantmentPredicate;test(Lnet/minecraft/component/type/ItemEnchantmentsComponent;)Z"))
-    public boolean a(
+    public boolean passItemStack(
             EnchantmentPredicate instance,
             ItemEnchantmentsComponent enchantmentsComponent,
             Operation<Boolean> original,

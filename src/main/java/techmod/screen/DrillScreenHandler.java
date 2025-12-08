@@ -57,13 +57,12 @@ public class DrillScreenHandler extends ScreenHandler {
         this.addSlot(new ModuleSlot(inventory, 5, 134, 18, drill));
         this.addSlot(new ModuleSlot(inventory, 6, 152, 18, drill));
         inventory.addListener(sender -> {
-            drill.set(
-                    DataComponentTypes.CONTAINER,
-                    ContainerComponent.fromStacks(Lists.newArrayList(inventory.iterator())));
+            drill.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(inventory.getHeldStacks()));
             if (drill.getItem() instanceof DrillItem drillItem) {
                 drillItem.updateDrillHead(drill);
             }
         });
+
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
     }
@@ -140,10 +139,17 @@ public class DrillScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            if (stack.isIn(ModItemTags.FORTUNE_MODULES) && DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH)) {
+            if (stack.isIn(ModItemTags.FORTUNE_MODULES)
+                    && (DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH)
+                            || DrillItem.hasModule(drill, ModItemTags.FORTUNE_MODULES))) {
                 return false;
             }
-            if (stack.isOf(ModItems.MODULE_SILK_TOUCH) && DrillItem.hasModule(drill, ModItemTags.FORTUNE_MODULES)) {
+            if (stack.isOf(ModItems.MODULE_SILK_TOUCH)
+                    && (DrillItem.hasModule(drill, ModItemTags.FORTUNE_MODULES)
+                            || DrillItem.hasModule(drill, ModItems.MODULE_SILK_TOUCH))) {
+                return false;
+            }
+            if (stack.isOf(ModItems.MODULE_MAGNETISM) && DrillItem.hasModule(drill, ModItems.MODULE_MAGNETISM)) {
                 return false;
             }
             return stack.isIn(ModItemTags.MODULES);

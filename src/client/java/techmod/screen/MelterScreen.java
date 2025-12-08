@@ -55,8 +55,8 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
             initialLavaAmount = lastLavaAmount;
             lastLavaAmount = lavaAmount;
         }
-        float lastFullness = (float) initialLavaAmount / MelterBlockEntity.LAVA_CAPACITY;
-        float newFullness = (float) handler.getLavaAmount() / MelterBlockEntity.LAVA_CAPACITY;
+        float lastFullness = (float) initialLavaAmount / MelterBlockEntity.maxLava;
+        float newFullness = (float) handler.getLavaAmount() / MelterBlockEntity.maxLava;
         int height = MathHelper.lerp(
                 (float) (Math.sin((animationProgress * Math.PI) / 2)),
                 (int) (TANK_HEIGHT * (1.0f - lastFullness)),

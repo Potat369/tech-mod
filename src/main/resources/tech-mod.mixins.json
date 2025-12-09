@@ -5,7 +5,8 @@
   "mixins": [
     "ApplyBonusLootFunctionMixin",
     "EnchantmentPredicateMixin",
-    "EnchantmentsPredicateMixin"
+    "EnchantmentsPredicateMixin",
+    "ServerPlayerInteractionManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

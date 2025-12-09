@@ -158,21 +158,14 @@ public class DrillItem extends Item implements TechEnergyItem {
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        var drillHead = stack.get(DataComponentTypes.CONTAINER).stream()
-                .filter(itemStack -> itemStack.isIn(ModItemTags.DRILL_HEADS))
-                .findFirst();
-        if (drillHead.isPresent()) {
-            drillHead.get().damage(1, miner, EquipmentSlot.MAINHAND);
+        var drillHead = stack.get(DataComponentTypes.CONTAINER).copyFirstStack();
+        if (drillHead.isIn(ModItemTags.DRILL_HEADS) && tryUseEnergy(stack, getEnergyMaxOutput(stack))) {
             var items = new java.util.ArrayList<>(
                     stack.get(DataComponentTypes.CONTAINER).stream().toList());
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).isIn(ModItemTags.DRILL_HEADS)) {
-                    items.set(i, drillHead.get());
-                }
-            }
+            drillHead.damage(1, (PlayerEntity) miner);
+            items.set(0, drillHead);
             stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(items));
             updateDrillHead(stack);
-            tryUseEnergy(stack, getEnergyMaxOutput(stack));
             return true;
         } else {
             return false;

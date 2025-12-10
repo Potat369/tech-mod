@@ -1,7 +1,10 @@
 package techmod.registry;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -12,6 +15,8 @@ import net.minecraft.text.Text;
 import team.reborn.energy.api.EnergyStorage;
 import techmod.TechMod;
 import techmod.item.DrillItem;
+
+import java.util.List;
 
 public class ModItemGroups {
     public static final RegistryKey<ItemGroup> TECH_MOD_ITEM_GROUP =
@@ -35,6 +40,27 @@ public class ModItemGroups {
                                                     ((DrillItem) ModItems.DRILL)
                                                             .getEnergyCapacity(ModItems.DRILL.getDefaultStack()))
                                             .build()));
+                            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                                entries.add(new ItemStack(
+                                        RegistryEntry.of(ModItems.DRILL),
+                                        1,
+                                        ComponentChanges.builder()
+                                                .add(
+                                                        EnergyStorage.ENERGY_COMPONENT,
+                                                        ((DrillItem) ModItems.DRILL)
+                                                                .getEnergyCapacity(ModItems.DRILL.getDefaultStack()))
+                                                .add(
+                                                        DataComponentTypes.CONTAINER,
+                                                        ContainerComponent.fromStacks(List.of(
+                                                                ModItems.NETHERITE_DRILL_HEAD.getDefaultStack(),
+                                                                ModItems.MODULE_FORTUNE_3.getDefaultStack(),
+                                                                ModItems.MODULE_EFFICIENCY_5.getDefaultStack(),
+                                                                ModItems.MODULE_MAGNETISM.getDefaultStack(),
+                                                                ModItems.MODULE_WIDTH.getDefaultStack(),
+                                                                ModItems.MODULE_HEIGHT.getDefaultStack(),
+                                                                ModItems.MODULE_DEPTH.getDefaultStack())))
+                                                .build()));
+                            }
                             entries.add(ModItems.COPPER_DRILL_HEAD);
                             entries.add(ModItems.IRON_DRILL_HEAD);
                             entries.add(ModItems.GOLDEN_DRILL_HEAD);

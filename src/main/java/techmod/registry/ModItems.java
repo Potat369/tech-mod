@@ -39,8 +39,6 @@ public class ModItems {
     public static final Item MODULE_ENERGY_EFFICIENCY = ofModule("energy_efficiency", 0.75f, 1);
     public static final Item MODULE_MAGNETISM = ofModule("magnetism", 1.05f, 1);
     public static final Item MODULE_SILK_TOUCH = ofModule("silk_touch", 1.05f, 1);
-    public static final Item TIN = ofItem("tin", Item::new, new Item.Settings());
-    public static final Item BRONZE = ofItem("bronze", Item::new, new Item.Settings());
 
     private static Item ofItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, TechMod.idOf(name));

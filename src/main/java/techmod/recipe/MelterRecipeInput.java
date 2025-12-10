@@ -1,8 +1,6 @@
 package techmod.recipe;
 
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.input.RecipeInput;
 
 public record MelterRecipeInput(ItemStack input1, ItemStack input2) implements RecipeInput {

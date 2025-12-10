@@ -41,52 +41,38 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
 
     private int lavaAmmount = 0;
     private int progress = 0;
-    private int maxProgress ;
+    private int maxProgress = 200;
 
     private PropertyDelegate propertyDelegate;
 
     protected final PropertyDelegate p = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            return lavaAmmount;
+            return switch (index){
+                case 0 -> lavaAmmount;
+                case 1 -> MelterBlockEntity.this.progress;
+                case 2 -> MelterBlockEntity.this.maxProgress;
+                default -> 0;
+            };
         }
 
         @Override
         public void set(int index, int value) {
-            lavaAmmount = value;
+            switch (index){
+                case 0 -> lavaAmmount = value;
+                case 1 -> MelterBlockEntity.this.progress = value;
+                case 2 -> MelterBlockEntity.this.maxProgress = value;
+            };
         }
 
         @Override
         public int size() {
-            return 1;
+            return 3;
         }
     };
 
     public MelterBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MELTER, pos, state);
-        this.propertyDelegate = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch (index) {
-                    case 0 -> MelterBlockEntity.this.progress;
-                    case 1 -> MelterBlockEntity.this.maxProgress;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch (index) {
-                    case 0 -> MelterBlockEntity.this.progress = value;
-                    case 1 -> MelterBlockEntity.this.maxProgress = value;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 2;
-            }
-        };
     }
 
     @Override
@@ -96,7 +82,7 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MelterScreenHandler(syncId, playerInventory, this, p);
+        return new MelterScreenHandler(syncId, playerInventory, this, p, MelterBlockEntity.this);
     }
 
     @Override
@@ -119,31 +105,23 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        ItemStack result = Inventories.splitStack(items, slot, amount);
-
-        if(!result.isEmpty()){
-            items.set(slot, ItemStack.EMPTY);
-            markDirty();
-        }
-        return result;
+        ItemStack split = Inventories.splitStack(items, slot, amount);
+        if (!split.isEmpty()) markDirty();
+        return split;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        ItemStack result = items.get(slot);
-        if (!result.isEmpty()) {
-            items.set(slot, ItemStack.EMPTY);
-            markDirty();
-        }
+        ItemStack result = Inventories.removeStack(items, slot);
+        markDirty();
         return result;
     }
 
     @Override
     public void setStack(int slot, ItemStack stack) {
         items.set(slot, stack);
-        if(stack.getCount() > getMaxCountPerStack()){
+        if (stack.getCount() > getMaxCountPerStack())
             stack.setCount(getMaxCountPerStack());
-        }
         markDirty();
     }
 
@@ -165,8 +143,8 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
         super.writeNbt(nbt, registries);
         Inventories.writeNbt(nbt, this.items, registries);
         nbt.putInt("Lava", lavaAmmount);
-        nbt.putInt("MeltTime", progress);
-        nbt.putInt("TotalMeltTime", maxProgress);
+        nbt.putInt("Progress", progress);
+        nbt.putInt("TotalProgress", maxProgress);
     }
 
     @Override
@@ -174,8 +152,8 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
         super.readNbt(nbt, registries);
         Inventories.readNbt(nbt, this.items, registries);
         lavaAmmount = nbt.getInt("Lava", lavaAmmount);
-        progress = nbt.getInt("MeltTime", progress);
-        maxProgress = nbt.getInt("TotalMeltTime", maxProgress);
+        progress = nbt.getInt("Progress", progress);
+        maxProgress = nbt.getInt("TotalProgress", maxProgress);
     }
 
     public int getLavaAmmount() {
@@ -188,7 +166,7 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
         lavaAmmount = Math.min(maxLava, lavaAmmount + ammount);
         markDirty();
     }
-    public boolean removeLava(int ammount) {
+    public boolean removeLava(float ammount) {
         if(lavaAmmount >= ammount) {
             lavaAmmount -= ammount;
             markDirty();
@@ -198,23 +176,23 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(hasRecipe()){
+        if (hasRecipe()) {
             increaseCraftingProcess();
+            removeLava(0.5f);
             markDirty(world, pos, state);
 
-            if(craftingHasFinished()){
+            if (craftingHasFinished()) {
                 craftItem();
                 resetProgress();
             }
-            else {
-                resetProgress();
-            }
+        } else {
+            resetProgress();
         }
     }
 
     private void resetProgress() {
         this.progress = 0;
-        this.maxProgress = getCurrentRecipe().get().value().melt_time();
+        this.maxProgress = 200;
     }
 
     private void craftItem() {
@@ -238,14 +216,14 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
     private boolean hasRecipe(){
         Optional<RecipeEntry<MelterRecipe>> recipe = getCurrentRecipe();
         if(recipe.isEmpty()) return false;
-        this.maxProgress = recipe.get().value().melt_time();
+        if(this.lavaAmmount < 50) return false;
+        maxProgress = recipe.get().value().melt_time();
         ItemStack output = recipe.get().value().output();
         return canInsertAmountIntoOutputSlot(output.getCount()) && canOutput(output);
     }
 
     private Optional<RecipeEntry<MelterRecipe>> getCurrentRecipe(){
-        assert world != null;
-        return ((ServerWorld) world).getRecipeManager().getFirstMatch(ModRecipes.MELTER_RECIPE_TYPE, new MelterRecipeInput(items.get(INPUT_SLOT1), items.get(INPUT_SLOT2)), this.world);
+        return ((ServerWorld) this.world).getRecipeManager().getFirstMatch(ModRecipes.MELTER_RECIPE_TYPE, new MelterRecipeInput(items.get(INPUT_SLOT1), items.get(INPUT_SLOT2)), this.world);
     }
 
     private boolean canOutput(ItemStack output){

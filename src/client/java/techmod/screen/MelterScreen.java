@@ -15,6 +15,7 @@ import java.util.function.Function;
 public class MelterScreen extends HandledScreen<MelterScreenHandler> {
     private static final Identifier LAVA_TEXTURE = Identifier.ofVanilla("textures/block/lava_still.png");
     private static final Identifier TEXTURE = TechMod.idOf("textures/gui/melter_v2.png");
+    private static final Identifier PROGRESS_ARROW = TechMod.idOf("textures/gui/arrow_progress.png");
     private static final int TANK_HEIGHT = 61;
     private static final int TANK_WIDTH = 21;
     private static int lastLavaAmount = 0;
@@ -32,21 +33,12 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
         int j = (this.height - backgroundHeight) / 2;
         context.drawTexture(
                 RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, backgroundWidth, backgroundHeight, 256, 256);
+        renderProgressArrow(context, x, y);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         super.render(context, mouseX, mouseY, deltaTicks);
-        Function<Float, Float> easeInOutBack = (Float x) -> {
-            double c1 = 1.70158;
-            double c2 = c1 * 1.525;
-
-            return (float)
-                    (x < 0.5
-                            ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
-                            : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2);
-        };
-
         int i = (this.width - backgroundWidth) / 2;
         int j = (this.height - backgroundHeight) / 2;
         int lavaAmount = handler.getLavaAmount();
@@ -55,8 +47,8 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
             initialLavaAmount = lastLavaAmount;
             lastLavaAmount = lavaAmount;
         }
-        float lastFullness = (float) initialLavaAmount / MelterBlockEntity.LAVA_CAPACITY;
-        float newFullness = (float) handler.getLavaAmount() / MelterBlockEntity.LAVA_CAPACITY;
+        float lastFullness = (float) initialLavaAmount / MelterBlockEntity.maxLava;
+        float newFullness = (float) handler.getLavaAmount() / MelterBlockEntity.maxLava;
         int height = MathHelper.lerp(
                 (float) (Math.sin((animationProgress * Math.PI) / 2)),
                 (int) (TANK_HEIGHT * (1.0f - lastFullness)),
@@ -76,5 +68,21 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
             animationProgress = Math.clamp(animationProgress + 0.05f * deltaTicks, 0.0f, 1.0f);
         }
         drawMouseoverTooltip(context, mouseX, mouseY);
+    }
+
+    private void renderProgressArrow(DrawContext context, int x, int y) {
+        if(handler.isCrafting()){
+            int progress = handler.getScaledArrowProgress();
+            int fullHeight = 24;
+            int width = 19;
+
+            int arrowX = x + 69;
+            int arrowY = y + 35;
+
+            context.drawTexture(
+                    RenderLayer::getGuiTextured,PROGRESS_ARROW, arrowX, arrowY, 0,0, width, progress, width, fullHeight
+            );
+
+        }
     }
 }

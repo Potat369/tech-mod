@@ -8,35 +8,66 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import techmod.recipe.MelterRecipe;
+import techmod.recipe.MelterRecipeInput;
+import techmod.recipe.ModRecipes;
 import techmod.registry.ModBlockEntities;
 import techmod.screen.MelterScreenHandler;
 
+import java.util.Optional;
+
 public class MelterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, Inventory {
-    public static final int LAVA_CAPACITY = 10000;
+
+    public static final int maxLava = 10000;
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
-    private int lavaAmount = 0;
+
+    private static final int INPUT_SLOT1 = 0;
+    private static final int INPUT_SLOT2 = 1;
+    private static final int OUTPUT_SLOT = 2;
+
+    private int lavaAmmount = 0;
+    private int progress = 0;
+    private int maxProgress = 200;
+
+    private PropertyDelegate propertyDelegate;
+
     protected final PropertyDelegate p = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            return lavaAmount;
+            return switch (index){
+                case 0 -> lavaAmmount;
+                case 1 -> MelterBlockEntity.this.progress;
+                case 2 -> MelterBlockEntity.this.maxProgress;
+                default -> 0;
+            };
         }
 
         @Override
         public void set(int index, int value) {
-            lavaAmount = value;
+            switch (index){
+                case 0 -> lavaAmmount = value;
+                case 1 -> MelterBlockEntity.this.progress = value;
+                case 2 -> MelterBlockEntity.this.maxProgress = value;
+            };
         }
 
         @Override
         public int size() {
-            return 1;
+            return 3;
         }
     };
 
@@ -51,7 +82,7 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MelterScreenHandler(syncId, playerInventory, this, p);
+        return new MelterScreenHandler(syncId, playerInventory, this, p, MelterBlockEntity.this);
     }
 
     @Override
@@ -74,38 +105,30 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        ItemStack result = Inventories.splitStack(items, slot, amount);
-
-        if (!result.isEmpty()) {
-            items.set(slot, ItemStack.EMPTY);
-            markDirty();
-        }
-        return result;
+        ItemStack split = Inventories.splitStack(items, slot, amount);
+        if (!split.isEmpty()) markDirty();
+        return split;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        ItemStack result = items.get(slot);
-        if (!result.isEmpty()) {
-            items.set(slot, ItemStack.EMPTY);
-            markDirty();
-        }
+        ItemStack result = Inventories.removeStack(items, slot);
+        markDirty();
         return result;
     }
 
     @Override
     public void setStack(int slot, ItemStack stack) {
         items.set(slot, stack);
-        if (stack.getCount() > getMaxCountPerStack()) {
+        if (stack.getCount() > getMaxCountPerStack())
             stack.setCount(getMaxCountPerStack());
-        }
         markDirty();
     }
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        if (world == null) return false;
-        if (world.getBlockEntity(pos) != this) return false;
+        if(world == null) return false;
+        if(world.getBlockEntity(pos) != this) return false;
         return player.squaredDistanceTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64;
     }
 
@@ -119,35 +142,109 @@ public class MelterBlockEntity extends BlockEntity implements NamedScreenHandler
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
         Inventories.writeNbt(nbt, this.items, registries);
-        nbt.putInt("Lava", lavaAmount);
+        nbt.putInt("Lava", lavaAmmount);
+        nbt.putInt("Progress", progress);
+        nbt.putInt("TotalProgress", maxProgress);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
         Inventories.readNbt(nbt, this.items, registries);
-        lavaAmount = nbt.getInt("Lava", lavaAmount);
+        lavaAmmount = nbt.getInt("Lava", lavaAmmount);
+        progress = nbt.getInt("Progress", progress);
+        maxProgress = nbt.getInt("TotalProgress", maxProgress);
     }
 
-    public int getLavaAmount() {
-        return lavaAmount;
+    public int getLavaAmmount() {
+        return lavaAmmount;
     }
-
     public int getMaxLavaAmmount() {
-        return LAVA_CAPACITY;
+        return maxLava;
     }
-
     public void addLava(int ammount) {
-        lavaAmount = Math.min(LAVA_CAPACITY, lavaAmount + ammount);
+        lavaAmmount = Math.min(maxLava, lavaAmmount + ammount);
         markDirty();
     }
-
-    public boolean removeLava(int ammount) {
-        if (lavaAmount >= ammount) {
-            lavaAmount -= ammount;
+    public boolean removeLava(float ammount) {
+        if(lavaAmmount >= ammount) {
+            lavaAmmount -= ammount;
             markDirty();
             return true;
         }
         return false;
+    }
+
+    public void tick(World world, BlockPos pos, BlockState state) {
+        if (hasRecipe()) {
+            increaseCraftingProcess();
+            removeLava(0.5f);
+            markDirty(world, pos, state);
+
+            if (craftingHasFinished()) {
+                craftItem();
+                resetProgress();
+            }
+        } else {
+            resetProgress();
+        }
+    }
+
+    private void resetProgress() {
+        this.progress = 0;
+        this.maxProgress = 200;
+    }
+
+    private void craftItem() {
+        Optional<RecipeEntry<MelterRecipe>> recipe = getCurrentRecipe();
+
+        ItemStack output = recipe.get().value().output();
+        this.removeStack(INPUT_SLOT1, 1);
+        this.removeStack(INPUT_SLOT2, 1);
+        this.setStack(OUTPUT_SLOT, new ItemStack(output.getItem(),
+                this.items.get(OUTPUT_SLOT).getCount() + output.getCount()));
+    }
+
+    private boolean craftingHasFinished(){
+        return this.progress >= this.maxProgress;
+    }
+
+    private void increaseCraftingProcess() {
+        this.progress ++;
+    }
+
+    private boolean hasRecipe(){
+        Optional<RecipeEntry<MelterRecipe>> recipe = getCurrentRecipe();
+        if(recipe.isEmpty()) return false;
+        if(this.lavaAmmount < 50) return false;
+        maxProgress = recipe.get().value().melt_time();
+        ItemStack output = recipe.get().value().output();
+        return canInsertAmountIntoOutputSlot(output.getCount()) && canOutput(output);
+    }
+
+    private Optional<RecipeEntry<MelterRecipe>> getCurrentRecipe(){
+        return ((ServerWorld) this.world).getRecipeManager().getFirstMatch(ModRecipes.MELTER_RECIPE_TYPE, new MelterRecipeInput(items.get(INPUT_SLOT1), items.get(INPUT_SLOT2)), this.world);
+    }
+
+    private boolean canOutput(ItemStack output){
+        return this.items.get(OUTPUT_SLOT).isEmpty() || this.items.get(OUTPUT_SLOT).getItem() == output.getItem();
+    }
+
+    private boolean canInsertAmountIntoOutputSlot(int count){
+        int maxCount = this.items.get(OUTPUT_SLOT).isEmpty() ? 64 : this.items.get(OUTPUT_SLOT).getMaxCount();
+        int currentCount = this.items.get(OUTPUT_SLOT).getCount();
+
+        return maxCount >= currentCount +  count;
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        return createNbt(registries);
     }
 }

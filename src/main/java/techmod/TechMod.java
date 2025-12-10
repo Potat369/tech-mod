@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import techmod.recipe.ModRecipes;
 import techmod.registry.*;
 import techmod.util.ModLootTablesModifier;
 import techmod.world.gen.ModOreGeneration;
@@ -27,5 +28,6 @@ public class TechMod implements ModInitializer {
         ModBlockEntities.init();
         ModLootTablesModifier.init();
         ModOreGeneration.init();
+        ModRecipes.init();
     }
 }

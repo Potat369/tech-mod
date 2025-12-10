@@ -3,6 +3,8 @@ package techmod.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import techmod.block.entity.MelterBlockEntity;
+import techmod.registry.ModBlockEntities;
 
 public class MelterBlock extends BlockWithEntity {
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
@@ -84,7 +87,7 @@ public class MelterBlock extends BlockWithEntity {
         }
         if (stack.isOf(Items.LAVA_BUCKET)) {
 
-            if (melter.getLavaAmount() <= melter.getMaxLavaAmmount() - 1000) {
+            if (melter.getLavaAmmount() <= melter.getMaxLavaAmmount() - 1000) {
 
                 melter.addLava(1000);
                 melter.markDirty();
@@ -129,5 +132,13 @@ public class MelterBlock extends BlockWithEntity {
     @Override
     protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        if(world.isClient) return null;
+
+        return validateTicker(type, ModBlockEntities.MELTER,
+                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 }

@@ -9,7 +9,10 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import techmod.registry.ModBlocks;
 import techmod.registry.ModItems;
+
+import java.util.List;
 
 public class ModRecipeGenerator extends RecipeGenerator {
     protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
@@ -33,6 +36,48 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .pattern(" bI")
                 .criterion("has_iron_ingot", conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
                 .offerTo(exporter);
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(
+                RecipeCategory.MISC,
+                ModItems.TIN_INGOT,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.TIN_BLOCK,
+                "tin_ingot_from_tin_block",
+                "tin_ingot");
+        offerReversibleCompactingRecipesWithCompactingRecipeGroup(
+                RecipeCategory.MISC,
+                ModItems.TIN_NUGGET,
+                RecipeCategory.MISC,
+                ModItems.TIN_INGOT,
+                "tin_ingot_from_nuggets",
+                "tin_ingot");
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(
+                RecipeCategory.MISC,
+                ModItems.BRONZE_INGOT,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.BRONZE_BLOCK,
+                "bronze_ingot_from_bronze_block",
+                "bronze_ingot");
+        offerReversibleCompactingRecipesWithCompactingRecipeGroup(
+                RecipeCategory.MISC,
+                ModItems.BRONZE_NUGGET,
+                RecipeCategory.MISC,
+                ModItems.BRONZE_INGOT,
+                "bronze_ingot_from_nuggets",
+                "bronze_ingot");
+        offerSmelting(
+                List.of(ModBlocks.TIN_ORE, ModBlocks.DEEPSLATE_TIN_ORE, ModItems.RAW_TIN),
+                RecipeCategory.MISC,
+                ModItems.TIN_INGOT,
+                0.9f,
+                200,
+                "tin_ingot");
+        offerBlasting(
+                List.of(ModBlocks.TIN_ORE, ModBlocks.DEEPSLATE_TIN_ORE, ModItems.RAW_TIN),
+                RecipeCategory.MISC,
+                ModItems.TIN_INGOT,
+                0.9f,
+                100,
+                "tin_ingot");
     }
 
     public void createDrillHeadRecipe(Item item) {

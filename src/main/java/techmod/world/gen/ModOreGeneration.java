@@ -10,6 +10,6 @@ public class ModOreGeneration {
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),
                 GenerationStep.Feature.UNDERGROUND_ORES,
-                ModPlacedFeatures.ORE_SCANNER_PLACED_KEY);
+                ModPlacedFeatures.TIN_ORE_PLACED_KEY);
     }
 }

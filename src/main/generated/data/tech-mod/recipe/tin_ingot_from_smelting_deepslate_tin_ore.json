@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.9,
+  "group": "tin_ingot",
+  "ingredient": "tech-mod:deepslate_tin_ore",
+  "result": {
+    "id": "tech-mod:tin_ingot"
+  }
+}

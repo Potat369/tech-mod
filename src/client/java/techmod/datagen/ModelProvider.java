@@ -22,6 +22,10 @@ public class ModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSingleton(ModBlocks.ORE_MINER, TexturedModel.CUBE_BOTTOM_TOP);
         blockStateModelGenerator.registerNorthDefaultHorizontalRotated(ModBlocks.MELTER, TexturedModel.ORIENTABLE);
+        blockStateModelGenerator.registerSingleton(ModBlocks.TIN_ORE, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(ModBlocks.DEEPSLATE_TIN_ORE, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(ModBlocks.TIN_BLOCK, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(ModBlocks.BRONZE_BLOCK, TexturedModel.CUBE_ALL);
     }
 
     @Override
@@ -47,6 +51,11 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.MODULE_SILK_TOUCH, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_ENERGY_EFFICIENCY, Models.GENERATED);
         generateDrill(itemModelGenerator, ModItems.DRILL);
+        itemModelGenerator.register(ModItems.BRONZE_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BRONZE_NUGGET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.TIN_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RAW_TIN, Models.GENERATED);
+        itemModelGenerator.register(ModItems.TIN_NUGGET, Models.GENERATED);
     }
 
     public void generateDrillHead(ItemModelGenerator itemModelGenerator, Item item) {

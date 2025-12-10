@@ -1,5 +1,5 @@
 {
-  "feature": "tech-mod:ore_scanner",
+  "feature": "tech-mod:tin_ore",
   "placement": [
     {
       "type": "minecraft:count",

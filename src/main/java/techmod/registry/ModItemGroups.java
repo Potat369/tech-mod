@@ -84,6 +84,19 @@ public class ModItemGroups {
                             entries.add(ModBlocks.ORE_MINER);
                             entries.add(ModBlocks.ORE_SCANNER);
                             entries.add(ModBlocks.TESLA_COIL);
+
+                            entries.add(ModItems.BRONZE_INGOT);
+                            entries.add(ModItems.TIN_INGOT);
+
+                            entries.add(ModItems.BRONZE_NUGGET);
+                            entries.add(ModItems.TIN_NUGGET);
+
+                            entries.add(ModBlocks.TIN_BLOCK);
+                            entries.add(ModBlocks.BRONZE_BLOCK);
+
+                            entries.add(ModBlocks.TIN_ORE);
+
+                            entries.add(ModBlocks.DEEPSLATE_TIN_ORE);
                         }))
                         .build());
     }

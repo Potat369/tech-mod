@@ -16,15 +16,15 @@ import techmod.registry.ModBlocks;
 import java.util.List;
 
 public class ModConfiguredFeatures {
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SCANNER_KEY = registerKey("ore_scanner");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> TIN_ORE_KEY = registerKey("tin_ore");
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceables = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
 
         List<OreFeatureConfig.Target> overworldPinkGarnetOres =
-                List.of(OreFeatureConfig.createTarget(stoneReplaceables, ModBlocks.ORE_SCANNER.getDefaultState()));
+                List.of(OreFeatureConfig.createTarget(stoneReplaceables, ModBlocks.TIN_ORE.getDefaultState()));
 
-        register(context, ORE_SCANNER_KEY, Feature.ORE, new OreFeatureConfig(overworldPinkGarnetOres, 8));
+        register(context, TIN_ORE_KEY, Feature.ORE, new OreFeatureConfig(overworldPinkGarnetOres, 8));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

@@ -1,6 +1,10 @@
 {
   "values": [
+    "tech-mod:ore_scanner",
     "tech-mod:ore_miner",
-    "tech-mod:ore_scanner"
+    "tech-mod:tin_block",
+    "tech-mod:deepslate_tin_ore",
+    "tech-mod:bronze_block",
+    "tech-mod:tin_ore"
   ]
 }

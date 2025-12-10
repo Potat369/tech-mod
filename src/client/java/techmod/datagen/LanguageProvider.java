@@ -38,6 +38,16 @@ public class LanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.MODULE_HEIGHT, "Height Module");
         builder.add(ModItems.MODULE_WIDTH, "Width Module");
         builder.add(ModItems.MODULE_ENERGY_EFFICIENCY, "Energy Efficiency Module");
+
+        builder.add(ModItems.BRONZE_INGOT, "Bronze Ingot");
+        builder.add(ModItems.BRONZE_NUGGET, "Bronze Nugget");
+        builder.add(ModItems.TIN_INGOT, "Tin Ingot");
+        builder.add(ModItems.TIN_NUGGET, "Tin Nugget");
+        builder.add(ModItems.RAW_TIN, "Raw Tin");
+        builder.add(ModBlocks.BRONZE_BLOCK, "Bronze Block");
+        builder.add(ModBlocks.TIN_BLOCK, "Tin Block");
+        builder.add(ModBlocks.TIN_ORE, "Tin Ore");
+        builder.add(ModBlocks.DEEPSLATE_TIN_ORE, "Deepslate Tin Ore");
     }
 
     public void generateBlocksTranslation(TranslationBuilder builder) {

@@ -16,15 +16,15 @@ import techmod.TechMod;
 import java.util.List;
 
 public class ModPlacedFeatures {
-    public static final RegistryKey<PlacedFeature> ORE_SCANNER_PLACED_KEY = registerKey("ore_scanner_placed");
+    public static final RegistryKey<PlacedFeature> TIN_ORE_PLACED_KEY = registerKey("tin_ore_placed");
 
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var configuredFeatures = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
         register(
                 context,
-                ORE_SCANNER_PLACED_KEY,
-                configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_SCANNER_KEY),
+                TIN_ORE_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.TIN_ORE_KEY),
                 ModOrePlacement.modifiersWithCount(
                         20, HeightRangePlacementModifier.uniform(YOffset.fixed(-80), YOffset.fixed(80))));
     }

@@ -23,7 +23,7 @@ public record MelterRecipe(Ingredient input1, Ingredient input2, ItemStack outpu
                         Ingredient.CODEC.fieldOf("input1").forGetter(MelterRecipe::input1),
                         Ingredient.CODEC.fieldOf("input2").forGetter(MelterRecipe::input2),
                         ItemStack.CODEC.fieldOf("output").forGetter(MelterRecipe::output),
-                        Codec.INT.optionalFieldOf("melt_time", 120).forGetter(MelterRecipe::melt_time))
+                        Codec.INT.optionalFieldOf("melt_time", 200).forGetter(MelterRecipe::melt_time))
                 .apply(instance, MelterRecipe::new));
 
         public static final PacketCodec<RegistryByteBuf, MelterRecipe> STREAM_CODEC =

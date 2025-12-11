@@ -1,0 +1,9 @@
+{
+  "type": "tech-mod:melter",
+  "input1": "#c:ingots/tin",
+  "input2": "#c:ingots/copper",
+  "output": {
+    "count": 2,
+    "id": "tech-mod:bronze_ingot"
+  }
+}

@@ -5,18 +5,26 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import techmod.recipe.MelterRecipeJsonBuilder;
 import techmod.registry.ModBlocks;
+import techmod.registry.ModConventionalItemTags;
 import techmod.registry.ModItems;
 
 import java.util.List;
 
 public class ModRecipeGenerator extends RecipeGenerator {
+    private RegistryEntryLookup<Item> itemLookup;
+
     protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
         super(registries, exporter);
+        itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
     }
 
     @Override
@@ -78,6 +86,10 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 0.9f,
                 100,
                 "tin_ingot");
+        offerMelting(
+                Ingredient.fromTag(itemLookup.getOrThrow(ModConventionalItemTags.INGOTS_TIN)),
+                Ingredient.fromTag(itemLookup.getOrThrow(ConventionalItemTags.COPPER_INGOTS)),
+                new ItemStack(ModItems.BRONZE_INGOT, 2));
     }
 
     public void createDrillHeadRecipe(Item item) {
@@ -91,5 +103,14 @@ public class ModRecipeGenerator extends RecipeGenerator {
                         "has_ingredient",
                         conditionsFromTag(repairable.items().getTagKey().get()))
                 .offerTo(exporter);
+    }
+
+    public void offerMelting(Ingredient input1, Ingredient input2, ItemStack output, int meltTime) {
+        new MelterRecipeJsonBuilder(input1, input2, output, meltTime)
+                .offerTo(exporter, getItemPath(output.getItem()) + "_from_melting");
+    }
+
+    public void offerMelting(Ingredient input1, Ingredient input2, ItemStack output) {
+        offerMelting(input1, input2, output, 200);
     }
 }

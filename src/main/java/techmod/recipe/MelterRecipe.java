@@ -49,7 +49,8 @@ public record MelterRecipe(Ingredient input1, Ingredient input2, ItemStack outpu
     public boolean matches(MelterRecipeInput input, World world) {
         if(world.isClient) return false;
 
-        return this.input1.test(input.getStackInSlot(0)) && this.input2.test(input.getStackInSlot(1));
+        return (this.input1.test(input.getStackInSlot(0)) && this.input2.test(input.getStackInSlot(1)))
+                || this.input1.test(input.getStackInSlot(1)) && this.input2.test(input.getStackInSlot(0));
     }
 
     @Override

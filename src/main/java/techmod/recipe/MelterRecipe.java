@@ -15,23 +15,19 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public record MelterRecipe(Ingredient input1, Ingredient input2, ItemStack output, Integer melt_time) implements Recipe<MelterRecipeInput> {
-
+public record MelterRecipe(Ingredient input1, Ingredient input2, ItemStack output, Integer melt_time)
+        implements Recipe<MelterRecipeInput> {
 
     public static class Serializer implements RecipeSerializer<MelterRecipe> {
-        public static final MapCodec<MelterRecipe> CODEC =
-            RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    Ingredient.CODEC.fieldOf("input1")
-                            .forGetter(MelterRecipe::input1),
-                    Ingredient.CODEC.fieldOf("input2")
-                            .forGetter(MelterRecipe::input2),
-                    ItemStack.CODEC.fieldOf("output")
-                            .forGetter(MelterRecipe::output),
-                    Codec.INT.optionalFieldOf("melt_time", 120)
-                            .forGetter(MelterRecipe::melt_time)
-            ).apply(instance, MelterRecipe::new));
+        public static final MapCodec<MelterRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                        Ingredient.CODEC.fieldOf("input1").forGetter(MelterRecipe::input1),
+                        Ingredient.CODEC.fieldOf("input2").forGetter(MelterRecipe::input2),
+                        ItemStack.CODEC.fieldOf("output").forGetter(MelterRecipe::output),
+                        Codec.INT.optionalFieldOf("melt_time", 120).forGetter(MelterRecipe::melt_time))
+                .apply(instance, MelterRecipe::new));
 
-        public static final PacketCodec<RegistryByteBuf, MelterRecipe> STREAM_CODEC = PacketCodecs.registryCodec(CODEC.codec()).cast();
+        public static final PacketCodec<RegistryByteBuf, MelterRecipe> STREAM_CODEC =
+                PacketCodecs.registryCodec(CODEC.codec()).cast();
 
         @Override
         public MapCodec<MelterRecipe> codec() {
@@ -44,10 +40,9 @@ public record MelterRecipe(Ingredient input1, Ingredient input2, ItemStack outpu
         }
     }
 
-
     @Override
     public boolean matches(MelterRecipeInput input, World world) {
-        if(world.isClient) return false;
+        if (world.isClient) return false;
 
         return (this.input1.test(input.getStackInSlot(0)) && this.input2.test(input.getStackInSlot(1)))
                 || this.input1.test(input.getStackInSlot(1)) && this.input2.test(input.getStackInSlot(0));

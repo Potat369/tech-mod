@@ -73,11 +73,11 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCrafting()){
             int progress = handler.getScaledArrowProgress();
-            int fullHeight = 24;
-            int width = 19;
+            int fullHeight = 25;
+            int width = 18;
 
             int arrowX = x + 69;
-            int arrowY = y + 35;
+            int arrowY = y + 34;
 
             context.drawTexture(
                     RenderLayer::getGuiTextured,PROGRESS_ARROW, arrowX, arrowY, 0,0, width, progress, width, fullHeight

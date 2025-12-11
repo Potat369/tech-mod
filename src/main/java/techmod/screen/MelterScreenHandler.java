@@ -50,7 +50,7 @@ public class MelterScreenHandler extends ScreenHandler {
     public int getScaledArrowProgress() {
         int progress = this.propertyDelegate.get(1);
         int maxProgress = this.propertyDelegate.get(2);
-        int arrowPixelSize = 24;
+        int arrowPixelSize = 25;
 
         return maxProgress != 0 ? (progress * arrowPixelSize) / maxProgress : 0;
     }

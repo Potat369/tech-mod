@@ -42,10 +42,13 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
                 .add(ModItems.MODULE_EFFICIENCY_3)
                 .add(ModItems.MODULE_EFFICIENCY_4)
                 .add(ModItems.MODULE_EFFICIENCY_5)
+                .add(ModItems.MODULE_EFFICIENCY_6)
                 .add(ModItems.MODULE_FORTUNE_1)
                 .add(ModItems.MODULE_FORTUNE_2)
                 .add(ModItems.MODULE_FORTUNE_3)
-                .add(ModItems.MODULE_ENERGY_EFFICIENCY)
+                .add(ModItems.MODULE_FORTUNE_4)
+                .add(ModItems.MODULE_ENERGY_EFFICIENCY_1)
+                .add(ModItems.MODULE_ENERGY_EFFICIENCY_2)
                 .add(ModItems.MODULE_MAGNETISM)
                 .add(ModItems.MODULE_SILK_TOUCH);
 
@@ -54,12 +57,14 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
                 .add(ModItems.MODULE_EFFICIENCY_2)
                 .add(ModItems.MODULE_EFFICIENCY_3)
                 .add(ModItems.MODULE_EFFICIENCY_4)
-                .add(ModItems.MODULE_EFFICIENCY_5);
+                .add(ModItems.MODULE_EFFICIENCY_5)
+                .add(ModItems.MODULE_EFFICIENCY_6);
 
         getOrCreateTagBuilder(ModItemTags.FORTUNE_MODULES)
                 .add(ModItems.MODULE_FORTUNE_1)
                 .add(ModItems.MODULE_FORTUNE_2)
-                .add(ModItems.MODULE_FORTUNE_3);
+                .add(ModItems.MODULE_FORTUNE_3)
+                .add(ModItems.MODULE_FORTUNE_4);
 
         getOrCreateTagBuilder(ConventionalItemTags.INGOTS)
                 .add(ModItems.BRONZE_INGOT)

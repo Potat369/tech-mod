@@ -29,15 +29,18 @@ public class LanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.MODULE_EFFICIENCY_3, "Efficiency Module III");
         builder.add(ModItems.MODULE_EFFICIENCY_4, "Efficiency Module IV");
         builder.add(ModItems.MODULE_EFFICIENCY_5, "Efficiency Module V");
+        builder.add(ModItems.MODULE_EFFICIENCY_6, "Efficiency Module VI");
         builder.add(ModItems.MODULE_FORTUNE_1, "Fortune Module I");
         builder.add(ModItems.MODULE_FORTUNE_2, "Fortune Module II");
         builder.add(ModItems.MODULE_FORTUNE_3, "Fortune Module III");
+        builder.add(ModItems.MODULE_FORTUNE_4, "Fortune Module IV");
         builder.add(ModItems.MODULE_SILK_TOUCH, "Silk Touch Module");
         builder.add(ModItems.MODULE_MAGNETISM, "Magnetism Module");
         builder.add(ModItems.MODULE_DEPTH, "Depth Module");
         builder.add(ModItems.MODULE_HEIGHT, "Height Module");
         builder.add(ModItems.MODULE_WIDTH, "Width Module");
-        builder.add(ModItems.MODULE_ENERGY_EFFICIENCY, "Energy Efficiency Module");
+        builder.add(ModItems.MODULE_ENERGY_EFFICIENCY_1, "Energy Efficiency Module I");
+        builder.add(ModItems.MODULE_ENERGY_EFFICIENCY_2, "Energy Efficiency Module II");
 
         builder.add(ModItems.BRONZE_INGOT, "Bronze Ingot");
         builder.add(ModItems.BRONZE_NUGGET, "Bronze Nugget");

@@ -53,8 +53,8 @@ public class ModItemGroups {
                                                         DataComponentTypes.CONTAINER,
                                                         ContainerComponent.fromStacks(List.of(
                                                                 ModItems.NETHERITE_DRILL_HEAD.getDefaultStack(),
-                                                                ModItems.MODULE_FORTUNE_3.getDefaultStack(),
-                                                                ModItems.MODULE_EFFICIENCY_5.getDefaultStack(),
+                                                                ModItems.MODULE_FORTUNE_4.getDefaultStack(),
+                                                                ModItems.MODULE_EFFICIENCY_6.getDefaultStack(),
                                                                 ModItems.MODULE_MAGNETISM.getDefaultStack(),
                                                                 ModItems.MODULE_WIDTH.getDefaultStack(),
                                                                 ModItems.MODULE_HEIGHT.getDefaultStack(),
@@ -72,13 +72,16 @@ public class ModItemGroups {
                             entries.add(ModItems.MODULE_EFFICIENCY_3);
                             entries.add(ModItems.MODULE_EFFICIENCY_4);
                             entries.add(ModItems.MODULE_EFFICIENCY_5);
+                            entries.add(ModItems.MODULE_EFFICIENCY_6);
                             entries.add(ModItems.MODULE_DEPTH);
                             entries.add(ModItems.MODULE_WIDTH);
                             entries.add(ModItems.MODULE_HEIGHT);
                             entries.add(ModItems.MODULE_FORTUNE_1);
                             entries.add(ModItems.MODULE_FORTUNE_2);
                             entries.add(ModItems.MODULE_FORTUNE_3);
-                            entries.add(ModItems.MODULE_ENERGY_EFFICIENCY);
+                            entries.add(ModItems.MODULE_FORTUNE_4);
+                            entries.add(ModItems.MODULE_ENERGY_EFFICIENCY_1);
+                            entries.add(ModItems.MODULE_ENERGY_EFFICIENCY_2);
                             entries.add(ModItems.MODULE_MAGNETISM);
                             entries.add(ModItems.MODULE_SILK_TOUCH);
                             entries.add(ModBlocks.ORE_MINER);

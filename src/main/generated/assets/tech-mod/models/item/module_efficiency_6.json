@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tech-mod:item/module_energy_efficiency"
+    "layer0": "tech-mod:item/module_efficiency_6"
   }
 }

@@ -8,10 +8,13 @@
     "tech-mod:module_efficiency_3",
     "tech-mod:module_efficiency_4",
     "tech-mod:module_efficiency_5",
+    "tech-mod:module_efficiency_6",
     "tech-mod:module_fortune_1",
     "tech-mod:module_fortune_2",
     "tech-mod:module_fortune_3",
-    "tech-mod:module_energy_efficiency",
+    "tech-mod:module_fortune_4",
+    "tech-mod:module_energy_efficiency_1",
+    "tech-mod:module_energy_efficiency_2",
     "tech-mod:module_magnetism",
     "tech-mod:module_silk_touch"
   ]

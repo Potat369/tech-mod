@@ -44,12 +44,15 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_3, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_4, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_5, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_EFFICIENCY_6, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_FORTUNE_1, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_FORTUNE_2, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_FORTUNE_3, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_FORTUNE_4, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_MAGNETISM, Models.GENERATED);
         itemModelGenerator.register(ModItems.MODULE_SILK_TOUCH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MODULE_ENERGY_EFFICIENCY, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_ENERGY_EFFICIENCY_1, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MODULE_ENERGY_EFFICIENCY_2, Models.GENERATED);
         generateDrill(itemModelGenerator, ModItems.DRILL);
         itemModelGenerator.register(ModItems.BRONZE_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.BRONZE_NUGGET, Models.GENERATED);

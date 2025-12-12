@@ -38,7 +38,6 @@ public abstract class ServerPlayerInteractionManagerMixin {
                             value = "INVOKE",
                             target =
                                     "Lnet/minecraft/server/network/ServerPlayerInteractionManager;finishMining(Lnet/minecraft/util/math/BlockPos;ILjava/lang/String;)V",
-                            ordinal = 2,
                             shift = At.Shift.AFTER))
     public void handleDrill3x3(
             BlockPos pos,

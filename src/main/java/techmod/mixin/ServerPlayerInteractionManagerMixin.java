@@ -48,7 +48,7 @@ public abstract class ServerPlayerInteractionManagerMixin {
             int sequence,
             CallbackInfo ci) {
         ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
-        if (stack.isOf(ModItems.DRILL)) {
+        if (!player.isSneaking() && stack.isOf(ModItems.DRILL)) {
             DrillItem item = (DrillItem) stack.getItem();
             int height = DrillItem.moduleCount(stack, ModItems.MODULE_HEIGHT);
             int width = DrillItem.moduleCount(stack, ModItems.MODULE_WIDTH);

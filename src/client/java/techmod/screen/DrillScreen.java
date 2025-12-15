@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import techmod.TechMod;
 import techmod.api.TechEnergyItem;
+import techmod.gui.widget.EnergyBufferWidget;
 
 public class DrillScreen extends HandledScreen<DrillScreenHandler> {
     private static final Identifier TEXTURE = TechMod.idOf("textures/gui/container/drill.png");
@@ -20,21 +21,15 @@ public class DrillScreen extends HandledScreen<DrillScreenHandler> {
     }
 
     @Override
+    protected void init() {
+        super.init();
+        addDrawableChild(new EnergyBufferWidget(x + 98, y + 18, 2, 16, client.player.getMainHandStack()));
+    }
+
+    @Override
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        int i = (width - backgroundWidth) / 2;
-        int j = (height - backgroundHeight) / 2;
         context.drawTexture(
-                RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0F, 0.0F, backgroundWidth, backgroundHeight, 256, 256);
-        var drill = MinecraftClient.getInstance().player.getMainHandStack();
-        if (drill.getItem() instanceof TechEnergyItem energyItem) {
-            var fill = Math.min((float) energyItem.getStoredEnergy(drill) / energyItem.getEnergyCapacity(drill), 1.0f);
-            context.fill(
-                    i + 98,
-                    j + 34,
-                    i + 100,
-                    j + (int) (34 - 16 * fill),
-                    ColorHelper.fullAlpha(energyItem.getEnergyBarColor(drill)));
-        }
+                RenderLayer::getGuiTextured, TEXTURE, x, y, 0.0F, 0.0F, backgroundWidth, backgroundHeight, 256, 256);
     }
 
     @Override

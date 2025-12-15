@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "tech-mod:diamond_drill_head",
+  "result": {
+    "id": "tech-mod:netherite_drill_head"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

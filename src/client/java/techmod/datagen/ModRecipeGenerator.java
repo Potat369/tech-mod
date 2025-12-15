@@ -34,7 +34,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
         createDrillHeadRecipe(ModItems.IRON_DRILL_HEAD);
         createDrillHeadRecipe(ModItems.EMERALD_DRILL_HEAD);
         createDrillHeadRecipe(ModItems.DIAMOND_DRILL_HEAD);
-        createDrillHeadRecipe(ModItems.NETHERITE_DRILL_HEAD);
+        offerNetheriteUpgradeRecipe(ModItems.DIAMOND_DRILL_HEAD, RecipeCategory.TOOLS, ModItems.NETHERITE_DRILL_HEAD);
         createShaped(RecipeCategory.TOOLS, ModItems.DRILL)
                 .input('B', Items.IRON_BLOCK)
                 .input('b', Items.IRON_BARS)

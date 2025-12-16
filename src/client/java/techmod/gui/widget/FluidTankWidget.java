@@ -3,6 +3,7 @@ package techmod.gui.widget;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -12,8 +13,10 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ColorHelper;
 
 import java.util.function.Supplier;
 
@@ -43,6 +46,9 @@ public class FluidTankWidget extends ClickableWidget {
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        var color = state.isIn(FluidTags.WATER)
+                ? ColorHelper.fullAlpha(BiomeColors.getWaterColor(client.world, client.player.getBlockPos()))
+                : 16777215;
         var sprite = FluidRenderHandlerRegistry.INSTANCE.get(fluid)
                 .getFluidSprites(this.client.world, BlockPos.ORIGIN, state)[0];
         var consumer = Tessellator.getInstance()
@@ -57,22 +63,22 @@ public class FluidTankWidget extends ClickableWidget {
                 consumer.vertex(xOffset, yOffset, 15)
                         .texture(sprite.getMinU(), sprite.getMaxV())
                         .normal(0, 0, 0)
-                        .color(0xFFFFFFFF)
+                        .color(color)
                         .light(15728880);
                 consumer.vertex(xOffset + 16, yOffset, 15)
                         .texture(sprite.getMaxU(), sprite.getMaxV())
                         .normal(0, 0, 0)
-                        .color(0xFFFFFFFF)
+                        .color(color)
                         .light(15728880);
                 consumer.vertex(xOffset + 16, yOffset - 16, 15)
                         .texture(sprite.getMaxU(), sprite.getMinV())
                         .normal(0, 0, 0)
-                        .color(0xFFFFFFFF)
+                        .color(color)
                         .light(15728880);
                 consumer.vertex(xOffset, yOffset - 16, 15)
                         .texture(sprite.getMinU(), sprite.getMinV())
                         .normal(0, 0, 0)
-                        .color(0xFFFFFFFF)
+                        .color(color)
                         .light(15728880);
             }
         }

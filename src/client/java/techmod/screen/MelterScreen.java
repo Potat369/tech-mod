@@ -26,7 +26,7 @@ public class MelterScreen extends HandledScreen<MelterScreenHandler> {
     @Override
     protected void init() {
         super.init();
-        fluidTankWidget = new FluidTankWidget(x + 139, y + 17, TANK_WIDTH, TANK_HEIGHT, Fluids.LAVA, Fluids.LAVA.getStill(false), handler::getLavaAmount, () -> MelterBlockEntity.maxLava);
+        fluidTankWidget = new FluidTankWidget(x + 139, y + 17, TANK_WIDTH, TANK_HEIGHT, Fluids.LAVA, handler::getLavaAmount, () -> MelterBlockEntity.maxLava);
         addDrawableChild(fluidTankWidget);
     }
 

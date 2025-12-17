@@ -22,7 +22,6 @@ import java.util.function.Supplier;
 
 public class FluidTankWidget extends ClickableWidget {
     private final Fluid fluid;
-    private final FluidState state;
     private final Supplier<Integer> fluidAmountGetter;
     private final Supplier<Integer> fluidCapacityGetter;
     private final MinecraftClient client;
@@ -33,12 +32,10 @@ public class FluidTankWidget extends ClickableWidget {
             int width,
             int height,
             Fluid fluid,
-            FluidState state,
             Supplier<Integer> fluidAmountGetter,
             Supplier<Integer> fluidCapacityGetter) {
         super(x, y, width, height, Text.literal("Fluid Tank"));
         this.fluid = fluid;
-        this.state = state;
         this.fluidAmountGetter = fluidAmountGetter;
         this.fluidCapacityGetter = fluidCapacityGetter;
         this.client = MinecraftClient.getInstance();
@@ -46,6 +43,7 @@ public class FluidTankWidget extends ClickableWidget {
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        var state = fluid.getDefaultState();
         var color = state.isIn(FluidTags.WATER)
                 ? ColorHelper.fullAlpha(BiomeColors.getWaterColor(client.world, client.player.getBlockPos()))
                 : 16777215;
